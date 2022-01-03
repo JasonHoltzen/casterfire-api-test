@@ -1,0 +1,57 @@
+/* Variables & Mixins -- Available in all other scss files */
+
+// == MIXINS Start == //
+// Breakpoint wrappers //
+$breakpoints: (
+	'xs': 650px,
+	'sm': 767px,
+	'md': 992px,
+	'lg': 1200px
+) !default;
+
+@mixin respond($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		@media (max-width: map-get($breakpoints, $breakpoint)) {
+			@content;
+		}
+	} @else {
+		@warn "Breakpoint `#{$breakpoint}` not found. " + "Available: #{map-keys($breakpoints)}.";
+	}
+}
+
+// Accessibly hide elements //
+@mixin visuallyHidden() {
+	clip: rect(0 0 0 0);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+// == MIXINS END == //
+
+// == VARIABLES == //
+$c-p: #ff3d00;
+$c-p-light: #ff7539;
+$c-p-dark: #c30000;
+$c-s: #4a148c;
+$c-s-light: #7c43bd;
+$c-s-dark: #12005e;
+
+$c-gray: #566573;
+$c-gray-light: #abb2b9;
+$c-gray-lighter: #eaecee;
+$c-gray-dark: #2c3e50;
+$c-gray-darker: #212f3d;
+$c-gray-darkest: #19252f;
+$c-danger: hsl(10deg, 85%, 60%);
+$c-safety: hsl(160deg, 65%, 50%);
+
+$darkOrange: #f15a24;
+$brightOrange: #f7891e;
+$purple: #6c298d;
+
+$font-display: '"Berkshire Swash", cursive';
+$font-normal: '"Raleway", sans-serif';

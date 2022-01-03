@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
+			"$assets/*": ["src/lib/assets/*"],
+			"$components/*": ["src/lib/components/*"],
+			"$icons/*": ["src/lib/icons/*"],
+			"$models/*": ["src/models/*"],
+			"$schemas/*": ["src/schemas/*"],
+			"$stores/*": ["src/stores/*"],
+			"$utils/*": ["src/utils/*"]
+		}
+	},
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]
+}
