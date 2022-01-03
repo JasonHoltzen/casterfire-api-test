@@ -18,18 +18,18 @@ const config = {
 						additionalData: '@use "src/variables.scss" as *;'
 					}
 				}
+			},
+			resolve: {
+				alias: {
+					$assets: path.resolve('./src/lib/assets'),
+					$components: path.resolve('./src/lib/components'),
+					$icons: path.resolve('./src/lib/icons'),
+					$models: path.resolve('./src/models'),
+					$schemas: path.resolve('./src/schemas'),
+					$stores: path.resolve('./src/stores'),
+					$utils: path.resolve('./src/utils')
+				}
 			}
-		}
-	},
-	resolve: {
-		alias: {
-			$assets: path.resolve('./src/lib/assets'),
-			$components: path.resolve('./src/lib/components'),
-			$icons: path.resolve('./src/lib/icons'),
-			$models: path.resolve('./src/models'),
-			$schemas: path.resolve('./src/schemas'),
-			$stores: path.resolve('./src/stores'),
-			$utils: path.resolve('./src/utils')
 		}
 	},
 	preprocess: [
