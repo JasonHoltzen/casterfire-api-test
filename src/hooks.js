@@ -1,9 +1,11 @@
 import * as cookie from 'cookie';
 import connectDB from '$utils/db.js';
 import { de } from '$utils/crypt.js';
+import Session from '$models/Session.js';
 
 export const handle = async ({ request, resolve }) => {
 	const cookies = await cookie.parse(request.headers.cookie || '');
+	console.log(cookies);
 	const sessionCookieString = cookies.session;
 
 	let cookieSession;
@@ -12,23 +14,38 @@ export const handle = async ({ request, resolve }) => {
 	}
 
 	let userSessionId, userToken;
-	//todo: removed await from cookieSessionString
-	if (sessionCookieString) {
+	//? removed await from sessionCookieString
+	if (await cookieSession) {
 		userSessionId = cookieSession.sessionId || undefined;
 		userToken = cookieSession.token || undefined;
 	}
 
-	//todo: removed await from here, too
-	// if (userSessionId && userToken) {
-	// put it back here
-	// }
+	//? removed await from here, too
+	if ((await userSessionId) && (await userToken)) {
+		try {
+			console.log('trying');
+			await connectDB();
+			const serverSession = await Session.findOne({
+				sessionId: userSessionId
+			}).lean();
+			console.log('made it past server session');
 
-	try {
-		await connectDB();
-		request.locals.isConnected = true;
-	} catch (err) {
-		console.log(err);
-		request.locals.isConnected = false;
+			if (await serverSession) {
+				console.log(serverSession);
+				if (serverSession.key && serverSession.token) {
+					console.log('serverSession.key & .token were present');
+					const decryptedUserToken = de(userToken, serverSession.key);
+					if (decryptedUserToken === serverSession.token) {
+						const userId = await serverSession.userId.toString();
+						request.locals.userId = userId;
+					}
+				}
+			}
+		} catch (err) {
+			console.log('catching');
+			request.locals.userId = 'bob';
+		}
+		//? removed the wrapper below
 	}
 
 	const response = await resolve(request);
@@ -42,8 +59,9 @@ export const handle = async ({ request, resolve }) => {
 };
 
 export const getSession = (request) => {
-	const isConnected = request.locals.isConnected || undefined;
+	const userId = request.locals.userId || undefined;
 	return {
-		isConnected
+		userId,
+		cows: 'yep, cows'
 	};
 };

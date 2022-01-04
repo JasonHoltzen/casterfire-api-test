@@ -1,11 +1,17 @@
 <script context="module">
-	let isCon = '';
+	let data = '';
 	export const load = async ({ session }) => {
-		isCon = session.isConnected ? 'yay' : 'nay';
+		data = session;
 		return {};
 	};
 </script>
 
+<script>
+	import Authform from '$lib/components/auth/authform.svelte';
+</script>
+
+<Authform />
+
 <pre>
-  {isCon}
+  {JSON.stringify(data, null, 2)}
 </pre>
