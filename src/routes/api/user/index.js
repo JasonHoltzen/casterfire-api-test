@@ -5,7 +5,7 @@ import User from '$models/User.js';
 export async function get({ locals }) {
 	try {
 		await connectDB();
-		const user = (await User.findOne({ _id: locals.userId }).lean()) || undefined;
+		const user = (await User.findOne({ _id: locals.userId }).lean().clone()) || undefined;
 
 		if (user) {
 			delete user.password;

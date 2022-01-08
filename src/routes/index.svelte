@@ -1,17 +1,9 @@
-<script context="module">
-	let data = '';
-	export const load = async ({ session }) => {
-		data = session;
-		return {};
-	};
-</script>
-
 <script>
-	import Authform from '$lib/components/auth/authform.svelte';
+	import FilterBar2 from '$components/filters/filterBar2.svelte';
+	import SpellSelector from '$components/spells/spellSelector.svelte';
+	import SpellViewer from '$components/spells/spellViewer.svelte';
 </script>
 
-<Authform />
-
-<pre>
-  {JSON.stringify(data, null, 2)}
-</pre>
+<FilterBar2 />
+<SpellSelector />
+<SpellViewer />

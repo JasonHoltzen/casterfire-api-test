@@ -1,6 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import customSpellSchema from '$schemas/CustomSpell.js';
 import { getNewId } from '$utils/mongooseId.js';
+import { clone } from '$utils/deep.js';
 
 const initialFormStore = {
 	_id: '',
@@ -32,14 +33,14 @@ const createSpellFormStore = () => {
 		set,
 		update,
 		reset: () => set({ ...initialFormStore }),
-		editSpell: (spell) => set({ ...spell }),
+		editSpell: (spell) => set(clone(spell)),
 		copySpell: (spell) => {
 			spell.custom = true;
 			spell._id = getNewId();
-			set({ ...spell });
+			set(clone(spell));
 		},
 		newSpell: () => {
-			let spell = { ...initialFormStore };
+			let spell = clone(initialFormStore);
 			spell._id = getNewId();
 			set(spell);
 		}

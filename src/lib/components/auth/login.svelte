@@ -2,17 +2,23 @@
 	import { createEventDispatcher } from 'svelte';
 	import { dataError } from '$stores/errors.js';
 	import { getText } from '$utils/erroh.js';
-
-	let email = 'j@a.com';
-	let password = 'shenanigans';
+	import { validate } from '$schemas/_validate.js';
+	import { authSchema } from '$schemas/Auth.js';
 
 	const dispatch = createEventDispatcher();
+
+	let values = {
+		email: 'j@a.com',
+		password: 'Poppycock1@'
+	};
+
+	$: validation = validate(authSchema, values);
 
 	const login = async () => {
 		try {
 			const res = await fetch('/auth/login', {
 				method: 'POST',
-				body: JSON.stringify({ email, password }),
+				body: JSON.stringify(values),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -30,12 +36,22 @@
 </script>
 
 <label for="uid">User: </label>
-<input type="text" name="uid" id="uid" bind:value={email} />
+<input type="text" name="uid" id="uid" bind:value={values.email} />
 <label for="pw">Password: </label>
-<input type="password" name="pw" id="pw" bind:value={password} />
+<input type="password" name="pw" id="pw" bind:value={values.password} />
 <button on:click|preventDefault={login}>Login</button>
 
+{#if !!validation && validation !== undefined}
+	<pre>
+	{JSON.stringify(validation, null, 2)}
+	</pre>
+{/if}
+
 <style lang="scss">
+	pre {
+		overflow: scroll;
+		max-height: 50%;
+	}
 	label,
 	input {
 		width: 100%;

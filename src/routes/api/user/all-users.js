@@ -14,7 +14,7 @@ const convertDate = (date) => {
 export async function get() {
 	try {
 		await connectDB();
-		const users = (await User.find({}).lean()) || undefined;
+		const users = (await User.find({}).lean().clone()) || undefined;
 
 		const playerList = await users.map((user) => {
 			delete user._id;

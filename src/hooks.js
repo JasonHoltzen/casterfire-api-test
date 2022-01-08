@@ -5,7 +5,6 @@ import Session from '$models/Session.js';
 
 export const handle = async ({ request, resolve }) => {
 	const cookies = await cookie.parse(request.headers.cookie || '');
-	console.log(cookies);
 	const sessionCookieString = cookies.session;
 
 	let cookieSession;
@@ -23,17 +22,13 @@ export const handle = async ({ request, resolve }) => {
 	//? removed await from here, too
 	if ((await userSessionId) && (await userToken)) {
 		try {
-			console.log('trying');
 			await connectDB();
 			const serverSession = await Session.findOne({
 				sessionId: userSessionId
 			}).lean();
-			console.log('made it past server session');
 
 			if (await serverSession) {
-				console.log(serverSession);
 				if (serverSession.key && serverSession.token) {
-					console.log('serverSession.key & .token were present');
 					const decryptedUserToken = de(userToken, serverSession.key);
 					if (decryptedUserToken === serverSession.token) {
 						const userId = await serverSession.userId.toString();
@@ -42,8 +37,7 @@ export const handle = async ({ request, resolve }) => {
 				}
 			}
 		} catch (err) {
-			console.log('catching');
-			request.locals.userId = 'bob';
+			request.locals.userId = undefined;
 		}
 		//? removed the wrapper below
 	}
@@ -61,7 +55,6 @@ export const handle = async ({ request, resolve }) => {
 export const getSession = (request) => {
 	const userId = request.locals.userId || undefined;
 	return {
-		userId,
-		cows: 'yep, cows'
+		userId
 	};
 };

@@ -1,11 +1,12 @@
 import { writable } from 'svelte/store';
+import { dataError } from '$stores/errors.js';
 
 // == AVAILABLE CHARACTER STORES == //
 // characters //
 // selectedCharacter //
 // currentCharacter (derived from Character, but with class info populated) //
 // import { selectedSpell } from './spells.js';
-const charactersDefaults = [{ characterName: '' }];
+const charactersDefaults = [];
 const selectedCharacterDefaults = {
 	spellbook: [],
 	_id: null,
@@ -20,6 +21,17 @@ const selectedCharacterDefaults = {
 	user: {
 		_id: null
 	}
+};
+
+const getCharacters = async () => {
+	let characters = [];
+	characters = await fetch('/api/characters')
+		.then((r) => r.json().then((r) => r.characters))
+		.catch((err) => {
+			dataError.showFatal(`CHARACTER ERROR: ${err}`);
+		});
+
+	return characters;
 };
 
 const deleteCharacter = (characterList, id) => {
@@ -38,13 +50,16 @@ const createSelectedCharacterStore = () => {
 };
 
 const createCharactersStore = () => {
-	const { subscribe, set, update } = writable({ ...charactersDefaults });
+	const { subscribe, set, update } = writable([...charactersDefaults]);
 	return {
 		subscribe,
 		set,
 		update,
+		populate: async () => {
+			set(await getCharacters());
+		},
 		reset: () => set({ ...charactersDefaults }),
-		deleteCharacter: (id) => update((list) => deleteCharacter(list, id))
+		deleteCharacter: (id) => update((characterList) => deleteCharacter(characterList, id))
 	};
 };
 
