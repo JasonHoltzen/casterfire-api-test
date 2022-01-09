@@ -9,8 +9,6 @@
 			try {
 				let currentUser = await fetch('/api/user').then((r) => r.json());
 
-				// fetch('/api/characters').then((r) => r.json().then((r) => r.characters))
-
 				if (currentUser) {
 					user.set(currentUser);
 				} else {

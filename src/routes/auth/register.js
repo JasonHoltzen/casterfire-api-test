@@ -17,7 +17,7 @@ export async function post({ body }) {
 		const { email, name, password } = body;
 		let user = undefined;
 
-		user = await User.findOne({ email }).lean();
+		user = await User.findOne({ email }).lean().clone();
 		if (user) {
 			return Erroh.conflict();
 		} else {
@@ -35,6 +35,7 @@ export async function post({ body }) {
 			});
 			user = user.toObject();
 			delete user.password;
+			console.log(user);
 		} catch (error) {
 			if (error._message === 'user validation failed') {
 				return Erroh.validationError('User validation failed on the server');

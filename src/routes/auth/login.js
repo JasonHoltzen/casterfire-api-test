@@ -18,7 +18,7 @@ export async function post({ body }) {
 		const { email, password } = body;
 		await connectDB();
 
-		let user = await User.findOne({ email }).lean();
+		let user = await User.findOne({ email }).lean().clone();
 
 		if (!user)
 			return Erroh.notFound(

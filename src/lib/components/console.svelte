@@ -30,7 +30,7 @@
 
 	$: un_comp = getUniqueSpellInfo($filteredSpells, 'components');
 
-	let show = true;
+	let show = false;
 </script>
 
 <div

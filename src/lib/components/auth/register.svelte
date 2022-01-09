@@ -2,22 +2,24 @@
 	import { createEventDispatcher } from 'svelte';
 	import { dataError } from '$stores/errors.js';
 	import { getText } from '$utils/erroh.js';
+	import { validate } from '$schemas/_validate.js';
+	import { authSchema } from '$schemas/Auth.js';
+	import Input from '$components/ui/basic/validatedInput.svelte';
 
-	let name = '';
-	let email = '';
-	let password = '';
+	let values = { name: '', email: '', password: '', repeat_password: '' };
 
 	const dispatch = createEventDispatcher();
 
+	$: errors = validate(authSchema, values) || {};
+	$: hasErrors = Object.keys(errors).length !== 0;
+
 	const register = async () => {
 		try {
+			delete values.repeat_password;
+
 			const res = await fetch('/auth/register', {
 				method: 'POST',
-				body: JSON.stringify({
-					email,
-					password,
-					name
-				}),
+				body: JSON.stringify(values),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -35,7 +37,7 @@
 						)
 					);
 				} else if (statusText === 'Validation Error') {
-					dataError.showFatal('');
+					dataError.showFatal('One or more form inputs was invalid');
 				} else {
 					dataError.showFatal(getText(statusText));
 				}
@@ -46,35 +48,34 @@
 	};
 </script>
 
-<label for="name">Name: </label>
-<input type="text" id="name" name="name" bind:value={name} />
-<label for="uid">User: </label>
-<input type="email" name="uid" id="uid" bind:value={email} />
-<label for="pw">Password: </label>
-<input type="password" name="pw" id="pw" bind:value={password} />
-<button on:click|preventDefault={register}>Register</button>
+<h3>Register</h3>
+
+<Input label="Name:" id="name" bind:value={values.name} bind:error={errors.name} />
+<Input label="Email:" id="email" bind:value={values.email} bind:error={errors.email} />
+<Input
+	label="Password:"
+	type="password"
+	id="password"
+	bind:value={values.password}
+	bind:error={errors.password}
+/>
+<Input
+	label="Confirm Password:"
+	id="repeat_password"
+	type="password"
+	bind:value={values.repeat_password}
+	error={!!errors?.repeat_password ? 'Passwords must match' : undefined}
+/>
+
+<button on:click|preventDefault={register} disabled={hasErrors}>Register</button>
 
 <style lang="scss">
-	label,
-	input {
-		width: 100%;
-	}
-	label {
-		margin-top: 10px;
-
-		&:first-of-type {
-			margin-top: 0;
-		}
-	}
-	input {
-		background: var(--c-gray-lighter);
-		border-radius: 100px;
-		color: var(--c-gray-darkest);
-		font-size: 16px;
-		line-height: 16px;
-		min-height: 44px;
-		min-width: 44px;
-		padding: 10px;
+	h3 {
+		margin: 0.5rem 0rem 1rem auto;
+		text-align: left;
+		color: var(--c-p-light);
+		text-transform: uppercase;
+		width: clamp(100px, 200px, 80%);
 	}
 
 	button {
@@ -97,6 +98,14 @@
 		&:hover {
 			transform: translateY(-3px);
 			box-shadow: 0px 5px 3px var(--c-gray-light);
+		}
+		&:disabled {
+			background: var(--c-gray-light);
+			color: var(--c-gray-darker);
+		}
+		&:disabled:hover {
+			transform: none;
+			box-shadow: none;
 		}
 	}
 </style>

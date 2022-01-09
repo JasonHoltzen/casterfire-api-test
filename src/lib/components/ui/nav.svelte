@@ -3,13 +3,14 @@
 	import MenuButtonIcon from '$icons/matdes/Menu.svelte';
 	import EditButtonIcon from '$icons/matdes/AccountEditOutline.svelte';
 	import ClearButtonIcon from '$icons/matdes/AccountOffOutline.svelte';
+	import CloseButtonIcon from '$icons/matdes/Close.svelte';
 	import { outClick } from '$utils/customActions';
 	import { modal } from '$stores/ui.js';
 	import { characters, selectedCharacter } from '$stores/character.js';
 	import { characterFormValues } from '$stores/characterForm.js';
 	import { user } from '$stores/user.js';
 	import { expoInOut } from 'svelte/easing';
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 	import AuthForm from '$components/auth/authform.svelte';
 	import LogoutButton from '$components/auth/logoutButton.svelte';
 	import CharacterEditForm from '$components/characters/characterEditModal.svelte';
@@ -58,7 +59,15 @@
 		aria-label="Show site menu"
 		aria-haspopup="true"
 	>
-		<MenuButtonIcon {...menuIconProps} />
+		{#if isOpen}
+			<span transition:fade>
+				<CloseButtonIcon {...menuIconProps} />
+			</span>
+		{:else}
+			<span transition:fade>
+				<MenuButtonIcon {...menuIconProps} />
+			</span>
+		{/if}
 	</button>
 
 	{#if isOpen}
@@ -66,7 +75,7 @@
 			class="menuOptions"
 			transition:slide={{
 				delay: 0,
-				duration: 500,
+				duration: 300,
 				easing: expoInOut
 			}}
 		>
@@ -139,25 +148,44 @@
 	button {
 		cursor: pointer;
 	}
+	h3 {
+		margin: 0.5rem 0rem 1rem auto;
+		text-align: left;
+		color: var(--c-p-light);
+		text-transform: uppercase;
+		width: clamp(100px, 200px, 80%);
+	}
 	.navMenu {
 		position: relative;
 		flex: 0 0 auto;
 	}
 	.menuButton {
 		display: flex;
+		position: relative;
 		background: var(--c-p-dark);
 		background-image: linear-gradient(45deg, var(--c-p-dark) 25%, var(--c-p-light) 75%);
 		border-radius: 50%;
-		box-sizing: content-box;
+		box-sizing: border-box;
 		border: none;
-		height: 30px;
-		padding: 10px;
 		transition: all 0.2s ease-in-out;
-		width: 30px;
-
+		height: 40px;
+		width: 40px;
+		z-index: 100;
 		&:hover {
 			transform: translateY(-3px);
 			box-shadow: 0px 5px 3px var(--c-s-light);
+		}
+
+		@include respond('md') {
+			height: 44px;
+			width: 44px;
+		}
+
+		span {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
 	}
 
@@ -166,12 +194,16 @@
 		background: var(--c-gray-dark);
 		border: 2px solid var(--c-gray-darkest);
 		border-radius: 10px;
+		border-top-left-radius: 22px;
 		box-shadow: 2px 2px 5px var(--c-s-dark);
 		color: var(--c-gray-lighter);
 		list-style-type: none;
 		min-width: 220px;
-		padding: 0px 10px 10px 10px;
-		z-index: 1;
+		top: 0;
+		padding: 0rem 10px 10px 10px;
+		width: 20vw;
+		max-width: 300px;
+		z-index: -1;
 	}
 
 	.buttonRow {

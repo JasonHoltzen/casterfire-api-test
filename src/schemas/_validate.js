@@ -3,7 +3,6 @@ const buildErrorText = (label, errors) => {
 	if (errors.length === 1) return (errorString += errors[0]);
 
 	errors.forEach((e, index) => {
-		console.log(e, index);
 		let beforeText = '';
 		let afterText = ' ';
 		let punctuation = errors.length > 2 ? ', ' : ' ';

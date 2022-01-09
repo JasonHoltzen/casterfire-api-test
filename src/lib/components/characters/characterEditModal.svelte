@@ -55,7 +55,7 @@
 	$: hasErrors = !!$characterFormErrors && $characterFormErrors.length > 0;
 
 	let showConfirmation = false;
-	let isConfirmed;
+	let isConfirmed = false;
 
 	let confirmationProps = {
 		header: 'Deleting a character cannot be undone!',
@@ -76,9 +76,8 @@
 				.then((r) => r.json())
 				.then(characters.deleteCharacter($selectedCharacter._id))
 				.then(() => {
-					console.log('form reset and hideModal() both commented out');
-					// selectedCharacter.reset();
-					// hideModal();
+					selectedCharacter.reset();
+					hideModal();
 				})
 				.catch((err) => {
 					console.log(err);
@@ -95,11 +94,11 @@
 		showConfirmation = true;
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		let newCharacter;
 
 		if (!hasErrors) {
-			success = fetch('/api/characters', {
+			success = await fetch('/api/characters', {
 				method: 'POST',
 				body: JSON.stringify({ character: { ...$characterFormValues } }),
 				headers: { 'content-type': 'application/json' }
@@ -142,6 +141,7 @@
 			on:submit={handleConfirmation}
 		/>
 	{/if}
+	{JSON.stringify(isConfirmed)}
 	<button
 		class="closeButton"
 		name="closeModalButton"

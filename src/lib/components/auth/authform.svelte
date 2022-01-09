@@ -3,7 +3,7 @@
 	import Login from '$components/auth/login.svelte';
 	import Register from '$components/auth/register.svelte';
 
-	let checked = false;
+	let register = false;
 
 	const reload = () => {
 		if (browser) {
@@ -13,13 +13,13 @@
 </script>
 
 <form action="submit" on:submit|preventDefault>
-	{#if checked}
+	{#if register}
 		<Register on:success={reload} />
 	{:else}
 		<Login on:success={reload} />
 	{/if}
 	<label for="registerCheckbox">
-		<input id="registerCheckbox" type="checkbox" bind:checked />
+		<input id="registerCheckbox" type="checkbox" bind:checked={register} />
 		Register?
 	</label>
 </form>

@@ -3,13 +3,14 @@ import Joi from 'joi';
 const pw_lower = new RegExp('^(?=.*[a-z])');
 const pw_upper = new RegExp('^(?=.*[A-Z])');
 const pw_num = new RegExp('^(?=.*[0-9])');
-const pw_special = new RegExp('^(?=.*[!@#$%^&*])');
+const pw_special = new RegExp('^(?=.*?[#?!@$%^&*-])');
 
 export const authSchema = Joi.object({
 	email: Joi.string()
 		.email({ tlds: { allow: false } })
 		.required()
 		.messages({
+			'string.empty': 'text',
 			'string.email': 'a valid email address'
 		}),
 	password: Joi.string()
@@ -21,13 +22,16 @@ export const authSchema = Joi.object({
 		.pattern(pw_special, { name: '1 special character' })
 		.required()
 		.messages({
-			'string.pattern.name': '{#name}',
+			'string.empty': 'text',
 			'string.min': 'at least 8 characters',
 			'string.max': 'no more than 255 characters',
-			'string.empty': 'text'
+			'string.pattern.name': '{#name}'
 		}),
 	repeat_password: Joi.ref('password'),
-	name: Joi.string().alphanum().messages({ 'string.alphanum': 'only letters or numbers' })
+	name: Joi.string().alphanum().messages({
+		'string.empty': 'text',
+		'string.alphanum': 'only letters or numbers'
+	})
 })
 	.with('repeat_password', 'password')
 	.messages({ 'object.with': 'both password fields' })

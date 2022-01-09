@@ -1,18 +1,20 @@
 <script>
+	import Input from '$components/ui/basic/validatedInput.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { dataError } from '$stores/errors.js';
 	import { getText } from '$utils/erroh.js';
 	import { validate } from '$schemas/_validate.js';
 	import { authSchema } from '$schemas/Auth.js';
 
-	const dispatch = createEventDispatcher();
-
 	let values = {
-		email: 'j@a.com',
-		password: 'Poppycock1@'
+		email: '',
+		password: ''
 	};
 
-	$: validation = validate(authSchema, values);
+	const dispatch = createEventDispatcher();
+
+	$: errors = validate(authSchema, values) || {};
+	$: hasErrors = Object.keys(errors).length !== 0;
 
 	const login = async () => {
 		try {
@@ -35,43 +37,26 @@
 	};
 </script>
 
-<label for="uid">User: </label>
-<input type="text" name="uid" id="uid" bind:value={values.email} />
-<label for="pw">Password: </label>
-<input type="password" name="pw" id="pw" bind:value={values.password} />
-<button on:click|preventDefault={login}>Login</button>
+<h3>Login</h3>
 
-{#if !!validation && validation !== undefined}
-	<pre>
-	{JSON.stringify(validation, null, 2)}
-	</pre>
-{/if}
+<Input label="Email:" id="email" bind:value={values.email} bind:error={errors.email} />
+<Input
+	label="Password:"
+	type="password"
+	id="password"
+	bind:value={values.password}
+	bind:error={errors.password}
+/>
+
+<button on:click|preventDefault={login} disabled={hasErrors}>Login</button>
 
 <style lang="scss">
-	pre {
-		overflow: scroll;
-		max-height: 50%;
-	}
-	label,
-	input {
-		width: 100%;
-	}
-	label {
-		margin-top: 10px;
-
-		&:first-of-type {
-			margin-top: 0;
-		}
-	}
-	input {
-		background: var(--c-gray-lighter);
-		border-radius: 100px;
-		color: var(--c-gray-darkest);
-		font-size: 16px;
-		line-height: 16px;
-		min-height: 44px;
-		min-width: 44px;
-		padding: 10px;
+	h3 {
+		margin: 0.5rem 0rem 1rem auto;
+		text-align: left;
+		color: var(--c-p-light);
+		text-transform: uppercase;
+		width: clamp(100px, 200px, 80%);
 	}
 
 	button {
@@ -94,6 +79,14 @@
 		&:hover {
 			transform: translateY(-3px);
 			box-shadow: 0px 5px 3px var(--c-gray-light);
+		}
+		&:disabled {
+			background: var(--c-gray-light);
+			color: var(--c-gray-darker);
+		}
+		&:disabled:hover {
+			transform: none;
+			box-shadow: none;
 		}
 	}
 </style>

@@ -13,13 +13,11 @@ export const handle = async ({ request, resolve }) => {
 	}
 
 	let userSessionId, userToken;
-	//? removed await from sessionCookieString
 	if (await cookieSession) {
 		userSessionId = cookieSession.sessionId || undefined;
 		userToken = cookieSession.token || undefined;
 	}
 
-	//? removed await from here, too
 	if ((await userSessionId) && (await userToken)) {
 		try {
 			await connectDB();

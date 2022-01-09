@@ -22,11 +22,17 @@
 		border-radius: 100px;
 		color: var(--c-gray-darkest);
 		font-size: 16px;
+		height: 2.3rem;
 		margin-left: 10px;
 		line-height: 16px;
-		min-height: 44px;
-		min-width: 44px;
+		min-height: 30px;
+		min-width: auto;
 		padding: 10px;
+
+		@include respond('md') {
+			min-height: 44px;
+			min-width: 44px;
+		}
 
 		&::placeholder {
 			color: var(--c-gray-light);
