@@ -34,7 +34,7 @@
 	};
 </script>
 
-<span
+<div
 	class="dropdown"
 	style={checked ? toggledVars : defaultVars}
 	use:outClick
@@ -60,11 +60,12 @@
 			<slot name="content" slot="content">No content provided in dropdownReveal.</slot>
 		</DropdownRevealContent>
 	{/if}
-</span>
+</div>
 
 <style lang="scss">
 	.dropdown {
 		position: relative;
+		cursor: pointer;
 
 		@include respond('sm') {
 			width: 100%;

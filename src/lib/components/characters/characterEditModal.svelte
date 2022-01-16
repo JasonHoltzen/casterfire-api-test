@@ -13,7 +13,7 @@
 	import CharacterDeleteIcon from '$icons/matdes/DeleteForeverOutline.svelte';
 	import CloseBtn from '$icons/matdes/Close.svelte';
 	import SaveBtn from '$icons/matdes/ContentSave.svelte';
-	import { dataError } from '$stores/errors';
+	import { tick } from 'svelte';
 
 	let blockClose = false;
 
@@ -64,29 +64,14 @@
 
 	const handleConfirmation = async () => {
 		if (isConfirmed) {
-			await fetch('/api/characters/', {
-				method: 'DELETE',
-				body: JSON.stringify({
-					id: $selectedCharacter._id
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
-				.then((r) => r.json())
-				.then(characters.deleteCharacter($selectedCharacter._id))
-				.then(() => {
-					selectedCharacter.reset();
-					hideModal();
-				})
-				.catch((err) => {
-					console.log(err);
-					dataError.showFatal(err);
-				});
+			await characters.deleteCharacter($selectedCharacter._id);
+			selectedCharacter.reset();
+			await tick();
+			hideModal();
 		}
 	};
 
-	const deleteCharacter = () => {
+	const deleteCharacter = async () => {
 		//shows the delete confirmation window
 		//delete confirmation window contains
 		//dispatcher, which calls
@@ -95,36 +80,39 @@
 	};
 
 	const handleSubmit = async () => {
-		let newCharacter;
-
 		if (!hasErrors) {
-			success = await fetch('/api/characters', {
-				method: 'POST',
-				body: JSON.stringify({ character: { ...$characterFormValues } }),
-				headers: { 'content-type': 'application/json' }
-			})
-				.then((res) => res.json())
-				.then((r) => {
-					newCharacter = r.character;
-					let isFound = false;
+			await characters.addOrUpdateCharacter({ ...$characterFormValues });
+			await tick();
+			selectedCharacter.reset();
+			await tick();
+			hideModal();
+			// await fetch('/api/characters', {
+			// 	method: 'POST',
+			// 	body: JSON.stringify({ character: { ...$characterFormValues } }),
+			// 	headers: { 'content-type': 'application/json' }
+			// })
+			// 	.then((res) => res.json())
+			// 	.then((r) => {
+			// 		newCharacter = r.character;
+			// 		let isFound = false;
 
-					$characters = $characters.map((c) => {
-						if (c._id === newCharacter._id) {
-							isFound = true;
-							return { ...newCharacter };
-						} else {
-							return c;
-						}
-					});
+			// 		$characters = $characters.map((c) => {
+			// 			if (c._id === newCharacter._id) {
+			// 				isFound = true;
+			// 				return { ...newCharacter };
+			// 			} else {
+			// 				return c;
+			// 			}
+			// 		});
 
-					if (!isFound) {
-						$characters = [...$characters, newCharacter];
-						$selectedCharacter = newCharacter;
-					}
-				})
-				.finally(() => {
-					hideModal();
-				});
+			// 		if (!isFound) {
+			// 			$characters = [...$characters, newCharacter];
+			// 			$selectedCharacter = newCharacter;
+			// 		}
+			// 	})
+			// 	.finally(() => {
+			// 		hideModal();
+			// 	});
 		}
 	};
 </script>
@@ -141,7 +129,6 @@
 			on:submit={handleConfirmation}
 		/>
 	{/if}
-	{JSON.stringify(isConfirmed)}
 	<button
 		class="closeButton"
 		name="closeModalButton"
@@ -162,7 +149,7 @@
 			{/each}
 		</ul>
 	{/if}
-	<form on:submit={handleSubmit}>
+	<form on:submit|preventDefault={handleSubmit}>
 		<label for="name">Name:</label>
 		<input id="name" name="name" bind:value={$characterFormValues.characterName} />
 

@@ -1,0 +1,246 @@
+{
+  ".svelte-kit/build/app.js": {
+    "file": "app.js",
+    "src": ".svelte-kit/build/app.js",
+    "isEntry": true,
+    "imports": [
+      "_index-dfe95557.js",
+      "_db-8890404f.js",
+      "_crypt-1ec0fc7a.js",
+      "_Session-280fcc5d.js"
+    ],
+    "css": [
+      "assets/app-97f7295a.css"
+    ]
+  },
+  "src/routes/auth/register.js": {
+    "file": "entries/endpoints/auth/register.js",
+    "src": "src/routes/auth/register.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_User-7fc291b2.js",
+      "_Session-280fcc5d.js",
+      "_erroh-c062e309.js",
+      "_crypt-1ec0fc7a.js"
+    ]
+  },
+  "src/routes/auth/logout.js": {
+    "file": "entries/endpoints/auth/logout.js",
+    "src": "src/routes/auth/logout.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_Session-280fcc5d.js"
+    ]
+  },
+  "src/routes/auth/login.js": {
+    "file": "entries/endpoints/auth/login.js",
+    "src": "src/routes/auth/login.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_User-7fc291b2.js",
+      "_Session-280fcc5d.js",
+      "_erroh-c062e309.js",
+      "_crypt-1ec0fc7a.js"
+    ]
+  },
+  "src/routes/api/characters/index.js": {
+    "file": "entries/endpoints/api/characters/index.js",
+    "src": "src/routes/api/characters/index.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_Character-d14be3f1.js",
+      "_erroh-c062e309.js",
+      "_mongooseId-3cd13daa.js",
+      "_Character-2047c1cd.js"
+    ]
+  },
+  "src/routes/api/characters/selected/removeSpell.js": {
+    "file": "entries/endpoints/api/characters/selected/removeSpell.js",
+    "src": "src/routes/api/characters/selected/removeSpell.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_Character-d14be3f1.js",
+      "_erroh-c062e309.js",
+      "_Character-2047c1cd.js"
+    ]
+  },
+  "src/routes/api/characters/selected/addSpell.js": {
+    "file": "entries/endpoints/api/characters/selected/addSpell.js",
+    "src": "src/routes/api/characters/selected/addSpell.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_Character-d14be3f1.js",
+      "_erroh-c062e309.js",
+      "_Character-2047c1cd.js"
+    ]
+  },
+  "src/routes/api/spells/index.js": {
+    "file": "entries/endpoints/api/spells/index.js",
+    "src": "src/routes/api/spells/index.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_erroh-c062e309.js"
+    ]
+  },
+  "src/routes/api/spells/custom.js": {
+    "file": "entries/endpoints/api/spells/custom.js",
+    "src": "src/routes/api/spells/custom.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_CustomSpell-d270f8cd.js",
+      "_Character-d14be3f1.js",
+      "_erroh-c062e309.js",
+      "_mongooseId-3cd13daa.js",
+      "_Character-2047c1cd.js"
+    ]
+  },
+  "src/routes/api/user/index.js": {
+    "file": "entries/endpoints/api/user/index.js",
+    "src": "src/routes/api/user/index.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_erroh-c062e309.js",
+      "_User-7fc291b2.js"
+    ]
+  },
+  "src/routes/api/user/all-users.js": {
+    "file": "entries/endpoints/api/user/all-users.js",
+    "src": "src/routes/api/user/all-users.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_User-7fc291b2.js"
+    ]
+  },
+  "src/routes/api/user/update.js": {
+    "file": "entries/endpoints/api/user/update.js",
+    "src": "src/routes/api/user/update.js",
+    "isEntry": true,
+    "imports": [
+      "_db-8890404f.js",
+      "_User-7fc291b2.js",
+      "_erroh-c062e309.js"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "entries/pages/__layout.svelte.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-dfe95557.js",
+      "_spellForm-a6ab5089.js",
+      "_lockuptext-9f3078c3.js",
+      "_Character-2047c1cd.js",
+      "_CustomSpell-d270f8cd.js",
+      "_mongooseId-3cd13daa.js"
+    ],
+    "css": [
+      "assets/entries/pages/__layout.svelte-5361f676.css"
+    ]
+  },
+  ".svelte-kit/build/components/error.svelte": {
+    "file": "entries/pages/error.svelte.js",
+    "src": ".svelte-kit/build/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-dfe95557.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "entries/pages/index.svelte.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-dfe95557.js",
+      "_spellForm-a6ab5089.js",
+      "_CustomSpell-d270f8cd.js",
+      "_mongooseId-3cd13daa.js"
+    ],
+    "css": [
+      "assets/entries/pages/index.svelte-3d94eb8e.css"
+    ]
+  },
+  "src/routes/all-users/__layout.reset.svelte": {
+    "file": "entries/pages/all-users/__layout.reset.svelte.js",
+    "src": "src/routes/all-users/__layout.reset.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-dfe95557.js",
+      "_lockuptext-9f3078c3.js"
+    ],
+    "css": [
+      "assets/entries/pages/all-users/__layout.reset.svelte-eb74ebad.css"
+    ]
+  },
+  "src/routes/all-users/index.svelte": {
+    "file": "entries/pages/all-users/index.svelte.js",
+    "src": "src/routes/all-users/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-dfe95557.js"
+    ],
+    "css": [
+      "assets/entries/pages/all-users/index.svelte-822da000.css"
+    ]
+  },
+  "_index-dfe95557.js": {
+    "file": "chunks/index-dfe95557.js"
+  },
+  "_db-8890404f.js": {
+    "file": "chunks/db-8890404f.js"
+  },
+  "_crypt-1ec0fc7a.js": {
+    "file": "chunks/crypt-1ec0fc7a.js"
+  },
+  "_Session-280fcc5d.js": {
+    "file": "chunks/Session-280fcc5d.js"
+  },
+  "_User-7fc291b2.js": {
+    "file": "chunks/User-7fc291b2.js"
+  },
+  "_erroh-c062e309.js": {
+    "file": "chunks/erroh-c062e309.js"
+  },
+  "_Character-d14be3f1.js": {
+    "file": "chunks/Character-d14be3f1.js",
+    "imports": [
+      "_Character-2047c1cd.js"
+    ]
+  },
+  "_mongooseId-3cd13daa.js": {
+    "file": "chunks/mongooseId-3cd13daa.js"
+  },
+  "_Character-2047c1cd.js": {
+    "file": "chunks/Character-2047c1cd.js"
+  },
+  "_CustomSpell-d270f8cd.js": {
+    "file": "chunks/CustomSpell-d270f8cd.js"
+  },
+  "_spellForm-a6ab5089.js": {
+    "file": "chunks/spellForm-a6ab5089.js",
+    "imports": [
+      "_index-dfe95557.js",
+      "_CustomSpell-d270f8cd.js",
+      "_mongooseId-3cd13daa.js"
+    ],
+    "css": [
+      "assets/spellForm-af535964.css"
+    ]
+  },
+  "_lockuptext-9f3078c3.js": {
+    "file": "chunks/lockuptext-9f3078c3.js",
+    "assets": [
+      "assets/logo-3d470272.svg",
+      "assets/lockuptext-fa9220d9.svg"
+    ]
+  }
+}

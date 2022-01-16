@@ -53,10 +53,9 @@
 	import { pf_spells } from '$stores/spells.js';
 	import { characters } from '$stores/character.js';
 
-	onMount(() => {
-		//TODO: implement other stores with populate
-		pf_spells.populate();
-		characters.populate();
+	onMount(async () => {
+		await pf_spells.populate();
+		if ($user) await characters.populate();
 	});
 </script>
 

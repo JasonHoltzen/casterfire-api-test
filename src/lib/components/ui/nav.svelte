@@ -16,8 +16,9 @@
 	import CharacterEditForm from '$components/characters/characterEditModal.svelte';
 
 	//@ Menu open & close
-	let isOpen = false;
-	const toggleOpen = () => (isOpen = !isOpen);
+	let isOpen = true;
+	// const toggleOpen = () => (isOpen = !isOpen);
+	const toggleOpen = () => (isOpen = true);
 
 	const showCharacterForm = async () => {
 		$modal.component = CharacterEditForm;

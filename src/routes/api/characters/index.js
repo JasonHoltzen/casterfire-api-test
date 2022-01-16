@@ -1,7 +1,7 @@
 import connectDB from '$utils/db.js';
 import Character from '$models/Character.js';
 import * as Erroh from '$utils/erroh.js';
-import { getNewId } from '$utils/mongooseId';
+import { getNewId } from '$utils/mongooseId.js';
 
 export async function get({ locals }) {
 	if (!locals.userId) {
@@ -10,16 +10,13 @@ export async function get({ locals }) {
 
 	try {
 		await connectDB();
-		const chars = await Character.find({ user: locals.userId }).lean().clone();
-
-		if (chars.length < 1) {
-			return Erroh.notFound();
-		}
+		let chars = await Character.find({ user: locals.userId }).clone().lean();
 
 		return {
 			status: 200,
 			body: {
-				characters: [...chars]
+				success: true,
+				characters: chars
 			}
 		};
 	} catch (error) {
@@ -43,30 +40,37 @@ export async function post({ body, locals }) {
 		}
 
 		character.user = { _id: locals.userId };
-		let query = { _id: character._id };
+		const query = { _id: character._id, user: locals.userId };
 
+		await connectDB();
 		const newChar = await Character.findOneAndUpdate(
 			query,
 			character,
-			{ upsert: true },
-			async (err) => {
+			{ upsert: true, returnOriginal: false },
+			(err, doc) => {
 				if (err) {
-					return Erroh.badRequest('The data was bad...');
+					return null;
 				} else {
-					console.log('Character saved');
+					return doc;
 				}
 			}
-		).clone();
+		)
+			.clone()
+			.lean();
 
-		return {
-			body: {
-				character: newChar,
-				success: true,
-				status: 200
-			}
-		};
+		if (await newChar) {
+			return {
+				status: 200,
+				body: {
+					character: newChar,
+					success: true
+				}
+			};
+		}
+
+		return Erroh.notFound();
 	} catch (err) {
-		return Erroh.serverUnavailable();
+		return err;
 	}
 }
 
@@ -86,23 +90,28 @@ export async function del({ body, locals }) {
 
 		await connectDB();
 		const query = { _id: id, user: locals.userId };
-		const isDeleted = await Character.findOneAndRemove(query, (err, result) => {
-			if (!!err || !result) {
-				return Erroh.notFound(
-					'A character with that ID belonging to the logged in user was not found.'
-				);
+		const deletedCharacter = await Character.findOneAndRemove(query, (err, doc) => {
+			if (!err && !!doc) {
+				return doc;
+			} else {
+				return err;
 			}
-			return result;
-		});
+		})
+			.clone()
+			.lean();
 
-		return {
-			status: 200,
-			body: {
-				success: true,
-				isDeleted: isDeleted
-			}
-		};
+		if (await deletedCharacter) {
+			return {
+				status: 200,
+				body: {
+					success: true,
+					id: deletedCharacter._id
+				}
+			};
+		}
+
+		return Erroh.notFound();
 	} catch (err) {
-		return Erroh.serverUnavailable(err);
+		return err;
 	}
 }

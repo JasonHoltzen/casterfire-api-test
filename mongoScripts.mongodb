@@ -1,0 +1,52 @@
+// find user
+use('spells_db');
+db.users.find({"_id": ObjectId("61e40bd80cb1778db4c922c6")})
+
+// delete user's characters
+use('spells_db');
+db.characters.deleteMany({"user": ObjectId("61e40bd80cb1778db4c922c6")});
+
+use('spells_db');
+db.pf2spells.find({components: {$eq: ["1minute(somatic", "verbal", "somatic"]}})
+
+use('spells_db');db.pf2spells.find({"_id": ObjectId("6023a6beb6666307be6f601a")});
+
+// find one
+use('spells_db');db.pf2spells.find({components: "or"});
+
+// if array contains value, add different value
+use('spells_db');
+db.pf2spells.updateMany({components: "1minute(sonmk,lmatic"}, {$push: {"components": "somatic"}})
+// 2nd field
+use('spells_db');
+db.pf2spells.updateMany({components: "1minute(somatic"}, {$push: {"components": "verbal"}})
+
+// delete from array
+use('spells_db');
+db.pf2spells.updateMany({components: "1minute(somatic"}, {$pull: {"components": "to"}})
+
+// replace in array
+use('spells_db');
+db.pf2spells.updateMany({components: "1minute(somatic"}, {$set: {"components.$": "1 minute"}})
+
+//update by id
+use('spells_db');
+db.pf2spells.update({"_id": ObjectId("6023a6beb6666307be6f601a")}, {$set: {"components": ["10 minutes", "material", "somatic", "verbal"] }})
+
+
+// remove duplicates from array
+use('spells_db');
+db.pf2spells.aggregate([
+  {'$unwind': {
+    'path': '$components',
+    'preserveNullAndEmptyArrays': true
+  }},
+  {'$group': {
+    "_id": '$_id',
+    'components': {'$addToSet': '$components'},
+    '_tempField': {'$first': '$$ROOT'},
+  }},
+  {
+    '$replaceRoot': {'newRoot': {'$mergeObjects': ['$_tempField', "$$ROOT"]}}
+  }
+])
