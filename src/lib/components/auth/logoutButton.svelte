@@ -1,17 +1,21 @@
 <script>
 	import { browser } from '$app/env';
 	import LogoutIcon from '$icons/matdes/Logout.svelte';
+	import { dataError } from '$stores/errors.js';
 
 	const logout = async () => {
 		try {
 			const res = await fetch('/auth/logout', {
 				method: 'DELETE'
 			});
-			if (res.ok && browser) {
-				document.location.href = '/';
+			if (res.ok) {
+				if (browser) {
+					document.location.href = '/';
+				}
 			}
 		} catch (err) {
 			console.log(err);
+			dataError.show(err);
 		}
 	};
 

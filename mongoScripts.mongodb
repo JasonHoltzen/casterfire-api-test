@@ -2,6 +2,10 @@
 use('spells_db');
 db.users.find({"_id": ObjectId("61e40bd80cb1778db4c922c6")})
 
+// find all characters for user
+use('spells_db');
+db.characters.find({"user": ObjectId("61e40bd80cb1778db4c922c6")})
+
 // delete user's characters
 use('spells_db');
 db.characters.deleteMany({"user": ObjectId("61e40bd80cb1778db4c922c6")});

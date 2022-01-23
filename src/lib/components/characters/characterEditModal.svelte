@@ -47,8 +47,9 @@
 		viewBox: '0 0 24 24'
 	};
 
-	const hideModal = () => {
+	const hideModal = async () => {
 		$modal.show = false;
+		await tick();
 		characterFormValues.reset();
 	};
 
@@ -62,11 +63,11 @@
 		message: 'This will delete the character and any spellbook information.  Are you sure?'
 	};
 
-	const handleConfirmation = async () => {
+	const handleDeleteConfirmation = async () => {
 		if (isConfirmed) {
-			await characters.deleteCharacter($selectedCharacter._id);
-			selectedCharacter.reset();
+			await characters.deleteOne($selectedCharacter._id);
 			await tick();
+			selectedCharacter.reset();
 			hideModal();
 		}
 	};
@@ -81,7 +82,7 @@
 
 	const handleSubmit = async () => {
 		if (!hasErrors) {
-			await characters.addOrUpdateCharacter({ ...$characterFormValues });
+			await characters.saveOne({ ...$characterFormValues });
 			await tick();
 			selectedCharacter.reset();
 			await tick();
@@ -126,7 +127,7 @@
 			bind:isConfirmed
 			bind:showConfirmation
 			{...confirmationProps}
-			on:submit={handleConfirmation}
+			on:submit={handleDeleteConfirmation}
 		/>
 	{/if}
 	<button

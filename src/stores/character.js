@@ -22,6 +22,7 @@ const selectedCharacterDefaults = {
 	}
 };
 
+// base selectedCharacter store
 const createSelectedCharacterStore = () => {
 	const { subscribe, set } = writable(selectedCharacterDefaults);
 	return {
@@ -31,7 +32,8 @@ const createSelectedCharacterStore = () => {
 	};
 };
 
-const getCharacters = async () => {
+// methods for character
+const getCharacterList = async () => {
 	try {
 		const res = await fetch('/api/characters', {
 			method: 'GET',
@@ -42,7 +44,6 @@ const getCharacters = async () => {
 
 		if (res.ok) {
 			let data = await res.json();
-			console.log(data);
 			return data;
 		}
 	} catch (err) {
@@ -50,7 +51,7 @@ const getCharacters = async () => {
 	}
 };
 
-const addOrUpdateInDb = async (newChar) => {
+const saveCharacter = async (newChar) => {
 	try {
 		const res = await fetch('/api/characters', {
 			method: 'POST',
@@ -86,14 +87,53 @@ const deleteCharacter = async (id) => {
 	}
 };
 
+const addSpellToCharacter = async (spellId, characterId) => {
+	try {
+		const res = await fetch('/api/characters/selected/addSpell', {
+			method: 'POST',
+			body: JSON.stringify({ spellId, characterId }),
+			headers: { 'Content-Type': 'application/json' }
+		});
+		if (res.ok) {
+			const data = await res.json();
+			return data;
+			// find a good place to run this after update (see spellViewer):	updateCharacterList(updatedCharacter);
+		}
+	} catch (err) {
+		console.log(err);
+		dataError.show(err);
+	}
+};
+
+const removeSpellFromCharacter = async (spellId, characterId) => {
+	try {
+		const res = await fetch('/api/characters/selected/removeSpell', {
+			method: 'POST',
+			body: JSON.stringify({ spellId, characterId }),
+			headers: { 'Content-Type': 'application/json' }
+		});
+		if (res.ok) {
+			const data = await res.json();
+			return data;
+		}
+	} catch (err) {
+		console.log(err);
+		dataError.show(err);
+	}
+};
+
+// base character store
 const createCharactersStore = () => {
 	const { subscribe, set, update } = writable([]);
 	return {
 		subscribe,
 		set,
 		update,
+		reset: () => {
+			set([]);
+		},
 		populate: async () => {
-			let data = await getCharacters();
+			let data = await getCharacterList();
 			let { characters } = data;
 
 			if (characters && characters.length > 0) {
@@ -102,8 +142,8 @@ const createCharactersStore = () => {
 				set([]);
 			}
 		},
-		addOrUpdateCharacter: async (newCharacter) => {
-			let data = await addOrUpdateInDb(newCharacter);
+		saveOne: async (newCharacter) => {
+			let data = await saveCharacter(newCharacter);
 			let { character } = data;
 			update((charList) => {
 				if (character) {
@@ -123,7 +163,7 @@ const createCharactersStore = () => {
 				}
 			});
 		},
-		deleteCharacter: async (idToDelete) => {
+		deleteOne: async (idToDelete) => {
 			let data = await deleteCharacter(idToDelete);
 			let { id } = data;
 			update((charList) => {
@@ -139,6 +179,39 @@ const createCharactersStore = () => {
 					//deleted item wasn't found, just return the store.
 					return charList;
 				}
+			});
+		},
+		updateCharacterSpells: (characterId, newSpellList) => {
+			update((charList) => {
+				return charList.map((c) => {
+					if (c._id === characterId) {
+						c.spellbook = [...newSpellList];
+						selectedCharacter.set(c);
+					}
+					return c;
+				});
+			});
+		},
+		addSpellToOne: async (spellId, characterId) => {
+			let data = await addSpellToCharacter(spellId, characterId);
+			let { character } = data;
+			characters.updateCharacterSpells(characterId, character.spellbook);
+		},
+		removeSpellFromOne: async (spellId, characterId) => {
+			let data = await removeSpellFromCharacter(spellId, characterId);
+			let { character } = data;
+			characters.updateCharacterSpells(character._id, character.spellbook);
+		},
+		removeDeletedSpellFromAll: (spellId) => {
+			// This function is designed to be ran after a custom spell is deleted,
+			// to remove the spell from all.
+			update((charList) => {
+				return charList.map((c) => {
+					c.spellbook.filter((s) => {
+						return s._id !== spellId;
+					});
+					return c;
+				});
 			});
 		}
 	};

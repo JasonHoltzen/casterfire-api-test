@@ -10,11 +10,10 @@ export async function get({ locals }) {
 			return Erroh.unauthorized('Unauthorized');
 		}
 		await connectDB();
-		const customSpells = await CustomSpell.find({ user: locals.userId }).sort('name').clone();
-
-		if (!customSpells) {
-			return Erroh().notFound("We can't find the spells! The magic is gone!");
-		}
+		const customSpells = await CustomSpell.find({ user: locals.userId })
+			.sort('name')
+			.clone()
+			.lean();
 
 		return {
 			status: 200,

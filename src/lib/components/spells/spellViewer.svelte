@@ -9,6 +9,7 @@
 	import RemoveSpellIcon from '$icons/matdes/BookmarkMinusOutline.svelte';
 	import CloseIcon from '$icons/matdes/Close.svelte';
 	import { fade } from 'svelte/transition';
+	import { dataError } from '$stores/errors';
 
 	const arrowIconProps = {
 		color: 'var(--c-s-lighter)',
@@ -29,58 +30,76 @@
 		$selectedSpell = {};
 	};
 
-	const updateCharacterList = (newCharacter) => {
-		return $characters.map((_char) => {
-			if (_char._id === newCharacter._id) {
-				_char.spellbook = [..._char.spellbook];
-			}
-			return _char;
-		});
-	};
+	// const updateCharacterList = (newCharacter) => {
+	// 	return $characters.map((_char) => {
+	// 		if (_char._id === newCharacter._id) {
+	// 			_char.spellbook = [..._char.spellbook];
+	// 		}
+	// 		return _char;
+	// 	});
+	// };
 
-	const addSpellToBook = async () => {
-		try {
-			const res = await fetch('/api/characters/selected/addSpell', {
-				method: 'POST',
-				body: JSON.stringify({
-					spellId: $selectedSpell._id,
-					character: $selectedCharacter._id
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			if (res.ok) {
-				const updatedCharacter = await res.json();
-				$selectedCharacter.spellbook = [...$selectedCharacter.spellbook, $selectedSpell._id];
-				updateCharacterList(updatedCharacter);
-			}
-		} catch (error) {
-			console.log(error);
+	// const addSpellToBook = async () => {
+	// 	try {
+	// 		const res = await fetch('/api/characters/selected/addSpell', {
+	// 			method: 'POST',
+	// 			body: JSON.stringify({
+	// 				spellId: $selectedSpell._id,
+	// 				characterId: $selectedCharacter._id
+	// 			}),
+	// 			headers: {
+	// 				'Content-Type': 'application/json'
+	// 			}
+	// 		});
+	// 		if (res.ok) {
+	// 			const updatedCharacter = await res.json();
+	// 			$selectedCharacter.spellbook = [...$selectedCharacter.spellbook, $selectedSpell._id];
+	// 			updateCharacterList(updatedCharacter);
+	// 		}
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 		dataError.show(err);
+	// 	}
+	// };
+	// const removeSpellFromBook = async () => {
+	// 	try {
+	// 		const res = await fetch('/api/characters/selected/removeSpell', {
+	// 			method: 'POST',
+	// 			body: JSON.stringify({
+	// 				spellId: $selectedSpell._id,
+	// 				characterId: $selectedCharacter._id
+	// 			}),
+	// 			headers: {
+	// 				'Content-Type': 'application/json'
+	// 			}
+	// 		});
+	// 		if (res.ok) {
+	// 			const updatedCharacter = await res.json();
+	// 			$selectedCharacter.spellbook = $selectedCharacter.spellbook.filter(
+	// 				(s) => s !== $selectedSpell._id
+	// 			);
+	// 			updateCharacterList(await updatedCharacter);
+	// 			selectedSpell.reset();
+	// 		}
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 		dataError.show(err)
+	// 	}
+	// };
+
+	const addSpell = async () => {
+		if (!$selectedCharacter?._id || !$selectedSpell?._id) {
+			dataError.show('Must select a character and a spell');
+		} else {
+			characters.addSpellToOne($selectedSpell._id, $selectedCharacter._id);
 		}
 	};
-	const removeSpellFromBook = async () => {
-		try {
-			const res = await fetch('/api/characters/selected/removeSpell', {
-				method: 'POST',
-				body: JSON.stringify({
-					spellId: $selectedSpell._id,
-					character: $selectedCharacter._id
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			if (res.ok) {
-				const updatedCharacter = await res.json();
-				$selectedCharacter.spellbook = $selectedCharacter.spellbook.filter(
-					(s) => s !== $selectedSpell._id
-				);
-				updateCharacterList(await updatedCharacter);
-				selectedSpell.reset();
-			}
-		} catch (error) {
-			console.log(error);
+
+	const removeSpell = async () => {
+		if (!$selectedCharacter?._id || !$selectedSpell?._id) {
+			dataError.show('Must select a character and a spell');
+		} else {
+			characters.removeSpellFromOne($selectedSpell._id, $selectedCharacter._id);
 		}
 	};
 </script>
@@ -93,7 +112,7 @@
 					<button
 						aria-label="Remove spell from character"
 						class="spellAddDelButton"
-						on:click|preventDefault={removeSpellFromBook}
+						on:click|preventDefault={removeSpell}
 						in:fade={{ delay: 1 }}
 					>
 						<RemoveSpellIcon {...addRemoveIconProps} />
@@ -103,7 +122,7 @@
 					<button
 						aria-label="Add spell to character"
 						class="spellAddDelButton"
-						on:click|preventDefault={addSpellToBook}
+						on:click|preventDefault={addSpell}
 					>
 						<AddSpellIcon {...addRemoveIconProps} />
 						<span class="text"> Add to spellbook </span>

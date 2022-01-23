@@ -38,13 +38,9 @@ const getSpells = async () => {
 		const localStorageSpells = pullSpellsFromLocal('pf_spells');
 		if (localStorageSpells) {
 			spells = localStorageSpells;
-			console.log('spells pulled from localStorage!');
-		} else {
-			console.log('no spells found in local storage');
 		}
 	}
 	if (!spells.length > 0) {
-		console.log('pulling spells from server');
 		spells = await fetch('/api/spells')
 			.then((r) => r.json().then((r) => r.spells))
 			.catch((err) => dataError.showFatal(err));
@@ -52,7 +48,6 @@ const getSpells = async () => {
 		if (browser && spells.length > 0) {
 			const cacheTime = 86400000; //1 day
 			saveSpellsToLocal('pf_spells', spells, cacheTime);
-			console.log('spells saved in local storage');
 		}
 	}
 	return spells;

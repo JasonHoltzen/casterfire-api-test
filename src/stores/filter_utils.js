@@ -167,5 +167,5 @@ export const filterSpells = (pfSpells, customSpells, filters) => {
 	const filteredSpells = spells.filter((_spell) => {
 		return applyFilters(_spell, appliedFilters);
 	});
-	return filteredSpells;
+	return filteredSpells.sort();
 };
