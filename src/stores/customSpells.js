@@ -68,7 +68,7 @@ const createCustomSpellStore = () => {
 		},
 		populate: async () => {
 			let data = await getCustomSpellList();
-			let { customSpells } = data;
+			let { customSpells } = await data;
 
 			if (customSpells && customSpells.length > 0) {
 				set(customSpells);

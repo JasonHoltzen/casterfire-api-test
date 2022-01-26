@@ -134,7 +134,7 @@ const createCharactersStore = () => {
 		},
 		populate: async () => {
 			let data = await getCharacterList();
-			let { characters } = data;
+			let { characters } = await data;
 
 			if (characters && characters.length > 0) {
 				set(characters);
