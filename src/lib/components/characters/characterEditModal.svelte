@@ -67,7 +67,6 @@
 		if (isConfirmed) {
 			await characters.deleteOne($selectedCharacter._id);
 			await tick();
-			selectedCharacter.reset();
 			hideModal();
 		}
 	};
@@ -84,36 +83,7 @@
 		if (!hasErrors) {
 			await characters.saveOne({ ...$characterFormValues });
 			await tick();
-			selectedCharacter.reset();
-			await tick();
 			hideModal();
-			// await fetch('/api/characters', {
-			// 	method: 'POST',
-			// 	body: JSON.stringify({ character: { ...$characterFormValues } }),
-			// 	headers: { 'content-type': 'application/json' }
-			// })
-			// 	.then((res) => res.json())
-			// 	.then((r) => {
-			// 		newCharacter = r.character;
-			// 		let isFound = false;
-
-			// 		$characters = $characters.map((c) => {
-			// 			if (c._id === newCharacter._id) {
-			// 				isFound = true;
-			// 				return { ...newCharacter };
-			// 			} else {
-			// 				return c;
-			// 			}
-			// 		});
-
-			// 		if (!isFound) {
-			// 			$characters = [...$characters, newCharacter];
-			// 			$selectedCharacter = newCharacter;
-			// 		}
-			// 	})
-			// 	.finally(() => {
-			// 		hideModal();
-			// 	});
 		}
 	};
 </script>

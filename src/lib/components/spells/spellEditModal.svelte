@@ -9,7 +9,6 @@
 	import { spellFormValues, spellFormErrors } from '$stores/spellForm.js';
 	import { selectedSpell } from '$stores/spells.js';
 	import { customSpells } from '$stores/customSpells.js';
-	import { dataError } from '$stores/errors.js';
 	import FlexSlider from '$components/ui/flexSlider.svelte';
 	import SpellAction from '$components/spells/spellAction.svelte';
 	import PlusBoxIcon from '$icons/matdes/PlusBox.svelte';
@@ -33,9 +32,8 @@
 		$spellFormValues.traits = $spellFormValues.traits || [];
 	});
 
-	$: traditionsEnabled = $spellFormValues.type.toLowerCase() === 'spell';
+	$: traditionsEnabled = $spellFormValues.type.toLowerCase() !== 'focus';
 	$: hasErrors = !!$spellFormErrors && $spellFormErrors.length > 0;
-	// $: console.log($selectedSpell);
 
 	const toLower = (_val) => _val.toLowerCase();
 
@@ -66,30 +64,11 @@
 		$modal.component = '';
 	};
 
-	const saveCustomSpell = async () => {
-		try {
-			const res = await fetch('/api/spells/custom', {
-				method: 'POST',
-				body: JSON.stringify({
-					customSpell: { ...$spellFormValues }
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			if (res.ok) {
-				const response = await res.json();
-				if (response.success) {
-					const newSpell = { ...response.customSpell };
-					customSpells.addOrUpdate(newSpell);
-					await tick();
-					$selectedSpell = newSpell;
-					hideModal();
-				}
-			}
-		} catch (err) {
-			console.log(err);
-			dataError.showFatal(err);
+	const handleSubmit = async () => {
+		if (!hasErrors) {
+			await customSpells.saveOne($spellFormValues);
+			await tick();
+			hideModal();
 		}
 	};
 
@@ -393,7 +372,7 @@
 					<button
 						class="button saveButton"
 						disabled={hasErrors}
-						on:click|preventDefault={saveCustomSpell}
+						on:click|preventDefault={handleSubmit}
 					>
 						<SaveBtn {...saveIconProps} />
 						<span class="text"> Save </span>

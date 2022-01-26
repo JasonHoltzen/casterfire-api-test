@@ -20,18 +20,26 @@
 
 <h2>User List</h2>
 {#if playerList}
-	<ul>
-		{#each playerList as player}
-			<li>
-				<div class="name">
-					{player.name}
-				</div>
-				<div class="date">
-					{player.date}
-				</div>
-			</li>
-		{/each}
-	</ul>
+	<table class="columnLabel">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Date Joined</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each playerList as player}
+				<tr>
+					<td class="name">
+						{player.name}
+					</td>
+					<td class="date">
+						{player.date}
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
 {/if}
 
 <style lang="scss">
@@ -44,32 +52,46 @@
 		position: sticky;
 		top: 0px;
 	}
-	ul {
-		display: flex;
-		flex-flow: column nowrap;
+
+	table {
 		background: var(--c-gray-dark);
 		border-radius: 10px;
 		color: var(--c-gray-lighter);
 		padding: 10px;
+		width: 100%;
 
-		li {
+		thead {
+			border-bottom: 3px solid hsla(200deg, 50%, 80%, 0.2);
+		}
+
+		thead,
+		tbody {
 			display: flex;
-			flex-flow: row nowrap;
+			flex-flow: column nowrap;
+			gap: 5px;
+			padding: 0.5rem;
+			width: 100%;
+		}
+
+		tr {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
 			border-bottom: 1px solid var(--c-p-light);
-			padding: 3px;
+			width: 100%;
+			gap: 0.5rem;
+
 			&:last-of-type {
 				border-bottom: none;
 			}
 			&:hover {
 				background: hsla(200deg, 50%, 50%, 0.1);
 			}
-
-			.name {
-				width: 40%;
-			}
-			.date {
-				flex: 1 0 auto;
-			}
+		}
+		th {
+			color: 1px solid var(--c-p-light);
+			text-align: left;
+			font-size: 1.05em;
+			font-weight: bold;
 		}
 	}
 </style>

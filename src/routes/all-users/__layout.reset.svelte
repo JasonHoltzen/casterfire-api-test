@@ -3,6 +3,15 @@
 	import LockupText from '$lib/assets/lockuptext.svg';
 </script>
 
+<svelte:head>
+	<title>CasterFire</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Raleway:wght@400;700;900&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
 <div class="container">
 	<header>
 		<a href="/" class="back">&larr;&nbsp;Back</a>

@@ -12,6 +12,7 @@
 	import { const_components as _comps } from '$stores/fieldConstants.js';
 	import { modal } from '$stores/ui.js';
 	import { user } from '$stores/user.js';
+	import { tick } from 'svelte';
 
 	export let name = '';
 	export let type = '';
@@ -35,14 +36,16 @@
 	$: c_reqs = components.filter((c) => _comps.requirements.includes(c));
 	$: hasOr = components.includes('or') && c_reqs.length > 1;
 
-	const copyNewSpell = () => {
+	const copyNewSpell = async () => {
 		spellFormValues.copySpell($selectedSpell);
+		await tick();
 		$modal.component = SpellEditForm;
 		$modal.show = true;
 	};
 
-	const editExistingSpell = () => {
+	const editExistingSpell = async () => {
 		spellFormValues.editSpell($selectedSpell);
+		await tick();
 		$modal.component = SpellEditForm;
 		$modal.show = true;
 	};
@@ -56,21 +59,9 @@
 			'No matter how hard you cry, this cannot be undone.  It will be removed from your account and each character on it.  Are you sure you want to delete the spell?'
 	};
 
-	const handleConfirmation = async () => {
+	const handleDeleteConfirmation = async () => {
 		if (isConfirmed) {
-			await fetch('/api/spells/custom', {
-				method: 'DELETE',
-				body: JSON.stringify({
-					customSpell: { ...$selectedSpell }
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
-				.then((r) => r.json())
-				.then(customSpells.deleteSpell({ ...$selectedSpell }))
-				.then(selectedSpell.reset())
-				.catch((err) => console.log(err));
+			await customSpells.deleteOne($selectedSpell._id);
 		}
 	};
 
@@ -92,7 +83,7 @@
 		bind:isConfirmed
 		bind:showConfirmation
 		{...confirmationProps}
-		on:submit={handleConfirmation}
+		on:submit={handleDeleteConfirmation}
 	/>
 {/if}
 <div class="headerRow">
@@ -112,7 +103,7 @@
 			{/if}
 			<button on:click|preventDefault={copyNewSpell} class="copy">
 				<SpellCopyEditIcon />
-				<span class="text"> Copy &amp; Edit </span>
+				<span class="text"> Copy to custom </span>
 			</button>
 			{#if custom}
 				<button on:click|preventDefault={deleteCustomSpell} class="delete">
@@ -149,7 +140,7 @@
 {/if}
 
 {#if components || action || range || area || duration || targets || savingThrow}
-	{#if components || action}
+	{#if (!!components && components.length > 0) || (!!action && action.length > 0)}
 		<span class="spellProperty">
 			<strong>Cast:&nbsp;</strong>
 			{#if !!action && action.length > 0}
@@ -171,7 +162,8 @@
 					{item}{#if index < c_reqs.length - 1},{/if}
 					{#if index === c_reqs.length - 2 && hasOr}or&nbsp;{/if}
 				{/each}
-			{/if})
+				)
+			{/if}
 		</span>
 	{/if}
 	{#if range || area || duration || targets || savingThrow}

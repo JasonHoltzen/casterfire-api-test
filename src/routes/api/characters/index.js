@@ -10,13 +10,13 @@ export async function get({ locals }) {
 
 	try {
 		await connectDB();
-		let chars = await Character.find({ user: locals.userId }).clone().lean();
+		let characters = await Character.find({ user: locals.userId }).clone().lean();
 
 		return {
 			status: 200,
 			body: {
 				success: true,
-				characters: chars
+				characters
 			}
 		};
 	} catch (error) {
@@ -77,13 +77,14 @@ export async function post({ body, locals }) {
 export async function del({ body, locals }) {
 	try {
 		if (!body) {
-			return Erroh.badRequest('A head without a body...?');
+			return Erroh.badRequest();
 		}
 		if (!locals.userId) {
-			Erroh.unauthorized('You shall not pass');
+			Erroh.unauthorized();
 		}
 
 		const { id } = body;
+
 		if (!id) {
 			return Erroh.badRequest('Must provide an id');
 		}
@@ -94,7 +95,7 @@ export async function del({ body, locals }) {
 			if (!err && !!doc) {
 				return doc;
 			} else {
-				return err;
+				return null;
 			}
 		})
 			.clone()

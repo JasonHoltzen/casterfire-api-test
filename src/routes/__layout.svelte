@@ -1,6 +1,5 @@
 <script context="module">
 	import { user } from '$stores/user.js';
-	import { customSpells } from '$stores/customSpells.js';
 	import { dataError } from '$stores/errors.js';
 	import { dev } from '$app/env';
 
@@ -20,21 +19,7 @@
 				dataError.showFatal('Error connecting to database');
 				return {};
 			}
-
-			let custSpells = await fetch('/api/spells/custom')
-				.then((r) => r.json().then((r) => r.customSpells))
-				.catch((err) => {
-					if (dev) console.log(err);
-					dataError.showFatal('Could not retrieve custom spells from the database');
-				});
-
-			if (await custSpells) {
-				customSpells.set([...custSpells]);
-			} else {
-				console.log('No custom spell data found');
-			}
 		}
-
 		return {};
 	}
 </script>
@@ -51,13 +36,15 @@
 	import ErrorToast from '$lib/components/ui/errorToast.svelte';
 	import { onMount } from 'svelte';
 	import { pf_spells } from '$stores/spells.js';
+	import { customSpells } from '$stores/customSpells.js';
 	import { characters } from '$stores/character.js';
 
 	onMount(() => {
-		pf_spells.populate();
 		if ($user?._id) {
+			customSpells.populate();
 			characters.populate();
 		}
+		pf_spells.populate();
 	});
 </script>
 

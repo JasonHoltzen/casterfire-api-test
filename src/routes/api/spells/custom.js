@@ -5,25 +5,23 @@ import * as Erroh from '$utils/erroh.js';
 import { getNewId } from '$utils/mongooseId';
 
 export async function get({ locals }) {
+	if (!locals.userId) {
+		return Erroh.unauthorized('Unauthorized');
+	}
+
 	try {
-		if (!locals.userId) {
-			return Erroh.unauthorized('Unauthorized');
-		}
 		await connectDB();
-		const customSpells = await CustomSpell.find({ user: locals.userId })
-			.sort('name')
-			.clone()
-			.lean();
+		const customSpells = await CustomSpell.find({ user: locals.userId }).clone().lean();
 
 		return {
 			status: 200,
 			body: {
+				success: true,
 				customSpells
 			}
 		};
 	} catch (err) {
-		console.log(err);
-		return err;
+		return Erroh.serverUnavailable();
 	}
 }
 
@@ -37,91 +35,99 @@ export async function post({ body, locals }) {
 		}
 
 		const { customSpell } = body;
-		if (!customSpell._id) {
-			customSpell._id = getNewId();
+		let { _id, ...spell } = customSpell;
+
+		if (!_id) {
+			_id = getNewId();
 		}
 
-		customSpell.user = { _id: locals.userId };
-		let query = { _id: customSpell._id };
+		spell.user = { _id: locals.userId };
+		const query = { _id: _id, user: locals.userId };
 
+		await connectDB();
 		const newSpell = await CustomSpell.findOneAndUpdate(
 			query,
-			customSpell,
-			{ upsert: true, returnNewDocument: true },
-			async (err) => {
+			spell,
+			{ upsert: true, returnOriginal: false },
+			(err, doc) => {
 				if (err) {
-					console.log(err);
-					return Erroh.badRequest('The data was bad...');
+					return undefined;
+				} else {
+					return doc;
 				}
 			}
-		).lean().clone;
+		)
+			.clone()
+			.lean();
 
-		return {
-			status: 200,
-			body: {
-				customSpell: { ...newSpell },
-				success: true
-			}
-		};
+		if (await newSpell) {
+			if (!newSpell) return Erroh.badRequest();
+			return {
+				status: 200,
+				body: {
+					customSpell: { ...newSpell },
+					success: true
+				}
+			};
+		}
+		return Erroh.notFound();
 	} catch (err) {
 		console.log(err);
-		return Erroh.serverUnavailable(err);
+		return err;
 	}
 }
 
 export async function del({ body, locals }) {
-	let errors = [];
 	try {
 		if (!locals.userId) {
-			return Erroh.unauthorized('Unauthorized');
+			return Erroh.unauthorized();
 		}
 		if (!body) {
-			return Erroh.badRequest('No body.');
+			return Erroh.badRequest();
 		}
-		const { customSpell } = body;
-
-		if (!customSpell._id || !customSpell.custom) {
-			return Erroh.badRequest('This is not a custom spell');
-		}
+		const { id } = body;
 
 		await connectDB();
-		const charQuery = { user: customSpell.user };
-		await Character.updateMany(
+		const charQuery = { user: locals.userId };
+		const removedCount = await Character.updateMany(
 			charQuery,
-			{ $pull: { spellbook: { $in: [customSpell._id] } } },
+			{ $pull: { spellbook: { $in: [id] } } },
 			{ multi: true },
-			async (err) => {
+			(err, res) => {
 				if (err) {
-					errors.push(err);
+					return 0;
 				} else {
-					console.log('Spell removed from all characters owned by user');
+					const { modifiedCount } = res;
+					return modifiedCount;
 				}
 			}
-		);
+		)
+			.clone()
+			.lean();
 
-		const spellQuery = { _id: customSpell._id, user: customSpell.user };
-		const deletedSpell = await CustomSpell.findOneAndRemove(spellQuery, (err, result) => {
-			if (err) {
-				errors.push(err);
-				return Erroh.notFound(err);
+		const spellQuery = { _id: id, user: locals.userId };
+		const deletedSpell = await CustomSpell.findOneAndRemove(spellQuery, (err, doc) => {
+			if (!err) {
+				return doc;
 			} else {
-				if (!result) {
-					return Erroh.notFound("Didn't find the item");
+				return null;
+			}
+		})
+			.clone()
+			.lean();
+
+		if (removedCount && deletedSpell) {
+			return {
+				status: 200,
+				body: {
+					success: true,
+					spellId: deletedSpell._id,
+					removedFromCount: removedCount
 				}
-			}
-			return result;
-		});
-
-		const spell = { ...deletedSpell };
-
-		return {
-			status: 200,
-			body: {
-				success: true,
-				deletedSpell: spell
-			}
-		};
+			};
+		}
 	} catch (err) {
-		return Erroh.serverUnavailable(JSON.stringify(errors));
+		console.log(err);
+		return err;
 	}
 }

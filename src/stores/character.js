@@ -38,7 +38,7 @@ const getCharacterList = async () => {
 		const res = await fetch('/api/characters', {
 			method: 'GET',
 			headers: {
-				'Content-Type': 'application / json'
+				'Content-Type': 'application/json'
 			}
 		});
 
@@ -145,10 +145,11 @@ const createCharactersStore = () => {
 		saveOne: async (newCharacter) => {
 			let data = await saveCharacter(newCharacter);
 			let { character } = data;
+
 			update((charList) => {
 				if (character) {
 					//new character
-					if (!newCharacter._id) {
+					if (!newCharacter?._id) {
 						return [...charList, character];
 					}
 					//existing character
@@ -162,6 +163,9 @@ const createCharactersStore = () => {
 					return charList;
 				}
 			});
+
+			if (character) selectedCharacter.set(character);
+			else selectedCharacter.reset();
 		},
 		deleteOne: async (idToDelete) => {
 			let data = await deleteCharacter(idToDelete);
@@ -180,6 +184,8 @@ const createCharactersStore = () => {
 					return charList;
 				}
 			});
+
+			selectedCharacter.reset();
 		},
 		updateCharacterSpells: (characterId, newSpellList) => {
 			update((charList) => {

@@ -43,18 +43,18 @@
 </div>
 {#if show}
 	<div class="console">
-		<Item label="user" json={$user} />
-		<Item label="selectedCharacter" json={$selectedCharacter} />
-		<Item label="dataErrors" json={$dataError} />
-		<Item label="spellEditValues" json={$spellFormValues} />
-		<Item label="selectedSpell" json={$selectedSpell} />
-		<Item label="filters" json={$filters} />
 		<Item label="appliedFilters" json={$appliedFilters} />
-		<Item label="filteredSpells" json={$filteredSpells} />
-		<Item label="modal" json={$modal} />
 		<Item label="characterFormErrors" json={$characterFormErrors} />
 		<Item label="customSpells" json={$customSpells} />
+		<Item label="dataErrors" json={$dataError} />
+		<Item label="filteredSpells" json={$filteredSpells} />
+		<Item label="filters" json={$filters} />
+		<Item label="modal" json={$modal} />
+		<Item label="selectedCharacter" json={$selectedCharacter} />
+		<Item label="selectedSpell" json={$selectedSpell} />
+		<Item label="spellEditValues" json={$spellFormValues} />
 		<Item label="uniqueComponents" json={un_comp} />
+		<Item label="user" json={$user} />
 		<div
 			class="button close"
 			on:click={() => {
