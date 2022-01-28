@@ -19,6 +19,18 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __objRest = (source, exclude) => {
+  var target = {};
+  for (var prop in source)
+    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
+      target[prop] = source[prop];
+  if (source != null && __getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(source)) {
+      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
+        target[prop] = source[prop];
+    }
+  return target;
+};
 var __export = (target, all) => {
   __markAsModule(target);
   for (var name in all)
@@ -55,24 +67,21 @@ const Joigoose = (0, import_joigoose.default)(import_mongoose.default);
 let CustomSpell = new Schema(Joigoose.convert(import_CustomSpell_d270f8cd.c));
 var CustomSpell$1 = import_mongoose.default.models["customspell"] || import_mongoose.default.model("customspell", CustomSpell);
 async function get({ locals }) {
+  if (!locals.userId) {
+    return (0, import_erroh_c062e309.u)();
+  }
   try {
-    if (!locals.userId) {
-      return (0, import_erroh_c062e309.u)("Unauthorized");
-    }
     await (0, import_db_8890404f.c)();
-    const customSpells = await CustomSpell$1.find({ user: locals.userId }).sort("name").clone();
-    if (!customSpells) {
-      return (0, import_erroh_c062e309.E)().notFound("We can't find the spells! The magic is gone!");
-    }
+    const customSpells = await CustomSpell$1.find({ user: locals.userId }).clone().lean();
     return {
       status: 200,
       body: {
+        success: true,
         customSpells
       }
     };
   } catch (err) {
-    console.log(err);
-    return err;
+    return (0, import_erroh_c062e309.s)();
   }
 }
 async function post({ body, locals }) {
@@ -84,72 +93,76 @@ async function post({ body, locals }) {
       return (0, import_erroh_c062e309.u)("Unauthorized");
     }
     const { customSpell } = body;
-    if (!customSpell._id) {
-      customSpell._id = (0, import_mongooseId_3cd13daa.g)();
+    let _a = customSpell, { _id } = _a, spell = __objRest(_a, ["_id"]);
+    if (!_id) {
+      _id = (0, import_mongooseId_3cd13daa.g)();
     }
-    customSpell.user = { _id: locals.userId };
-    let query = { _id: customSpell._id };
-    const newSpell = await CustomSpell$1.findOneAndUpdate(query, customSpell, { upsert: true, returnNewDocument: true }, async (err) => {
+    spell.user = { _id: locals.userId };
+    const query = { _id, user: locals.userId };
+    await (0, import_db_8890404f.c)();
+    const newSpell = await CustomSpell$1.findOneAndUpdate(query, spell, { upsert: true, returnOriginal: false }, (err, doc) => {
       if (err) {
-        console.log(err);
-        return (0, import_erroh_c062e309.b)("The data was bad...");
+        return void 0;
+      } else {
+        return doc;
       }
-    }).lean().clone;
-    return {
-      status: 200,
-      body: {
-        customSpell: __spreadValues({}, newSpell),
-        success: true
-      }
-    };
+    }).clone().lean();
+    if (await newSpell) {
+      if (!newSpell)
+        return (0, import_erroh_c062e309.b)();
+      return {
+        status: 200,
+        body: {
+          customSpell: __spreadValues({}, newSpell),
+          success: true
+        }
+      };
+    }
+    return (0, import_erroh_c062e309.a)();
   } catch (err) {
     console.log(err);
-    return (0, import_erroh_c062e309.s)();
+    return err;
   }
 }
 async function del({ body, locals }) {
-  let errors = [];
   try {
     if (!locals.userId) {
-      return (0, import_erroh_c062e309.u)("Unauthorized");
+      return (0, import_erroh_c062e309.u)();
     }
     if (!body) {
-      return (0, import_erroh_c062e309.b)("No body.");
+      return (0, import_erroh_c062e309.b)();
     }
-    const { customSpell } = body;
-    if (!customSpell._id || !customSpell.custom) {
-      return (0, import_erroh_c062e309.b)("This is not a custom spell");
-    }
+    const { id } = body;
     await (0, import_db_8890404f.c)();
-    const charQuery = { user: customSpell.user };
-    await import_Character_d14be3f1.C.updateMany(charQuery, { $pull: { spellbook: { $in: [customSpell._id] } } }, { multi: true }, async (err) => {
+    const charQuery = { user: locals.userId };
+    const removedCount = await import_Character_d14be3f1.C.updateMany(charQuery, { $pull: { spellbook: { $in: [id] } } }, { multi: true }, (err, res) => {
       if (err) {
-        errors.push(err);
+        return 0;
       } else {
-        console.log("Spell removed from all characters owned by user");
+        const { modifiedCount } = res;
+        return modifiedCount;
       }
-    });
-    const spellQuery = { _id: customSpell._id, user: customSpell.user };
-    const deletedSpell = await CustomSpell$1.findOneAndRemove(spellQuery, (err, result) => {
-      if (err) {
-        errors.push(err);
-        return (0, import_erroh_c062e309.a)(err);
+    }).clone().lean();
+    const spellQuery = { _id: id, user: locals.userId };
+    const deletedSpell = await CustomSpell$1.findOneAndRemove(spellQuery, (err, doc) => {
+      if (!err) {
+        return doc;
       } else {
-        if (!result) {
-          return (0, import_erroh_c062e309.a)("Didn't find the item");
+        return null;
+      }
+    }).clone().lean();
+    if (removedCount && deletedSpell) {
+      return {
+        status: 200,
+        body: {
+          success: true,
+          spellId: deletedSpell._id,
+          removedFromCount: removedCount
         }
-      }
-      return result;
-    });
-    const spell = __spreadValues({}, deletedSpell);
-    return {
-      status: 200,
-      body: {
-        success: true,
-        deletedSpell: spell
-      }
-    };
+      };
+    }
   } catch (err) {
-    return (0, import_erroh_c062e309.s)(JSON.stringify(errors));
+    console.log(err);
+    return err;
   }
 }

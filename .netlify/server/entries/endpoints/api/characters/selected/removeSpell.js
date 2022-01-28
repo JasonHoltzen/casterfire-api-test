@@ -33,30 +33,33 @@ var import_joigoose = __toModule(require("joigoose"));
 var import_Character_2047c1cd = __toModule(require("../../../../../chunks/Character-2047c1cd.js"));
 var import_joi = __toModule(require("joi"));
 async function post({ locals, body }) {
-  if (!locals.userId) {
-    console.log("Not authorized");
-    return (0, import_erroh_c062e309.u)();
-  }
   if (!body) {
-    console.log("No character selected");
     return (0, import_erroh_c062e309.b)();
   }
-  const { spellId, character } = body;
-  if (!spellId || !character) {
+  if (!locals.userId) {
+    return (0, import_erroh_c062e309.u)();
+  }
+  const { spellId, characterId } = body;
+  if (!spellId || !characterId) {
     return (0, import_erroh_c062e309.b)();
   }
   try {
     await (0, import_db_8890404f.c)();
-    const query = { _id: character, user: locals.userId };
-    const updatedCharacter = await import_Character_d14be3f1.C.findOneAndUpdate(query, { $pull: { spellbook: spellId } }, { new: true });
+    const query = { _id: characterId, user: locals.userId };
+    const updatedCharacter = await import_Character_d14be3f1.C.findOneAndUpdate(query, { $pull: { spellbook: spellId } }, { returnOriginal: false }, (err, doc) => {
+      if (err)
+        return null;
+      else
+        return doc;
+    }).clone().lean();
+    console.log(updatedCharacter);
     return {
       status: 200,
       body: {
-        updatedCharacter
+        character: updatedCharacter
       }
     };
   } catch (error) {
-    console.log(error);
     return (0, import_erroh_c062e309.b)();
   }
 }

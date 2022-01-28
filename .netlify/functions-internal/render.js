@@ -5,7 +5,7 @@ exports.handler = init({
 	assets: new Set(["favicon.ico","favicon.png","global.css","lockuptext.svg","logo.svg"]),
 	_: {
 		mime: {".ico":"image/vnd.microsoft.icon",".png":"image/png",".css":"text/css",".svg":"image/svg+xml"},
-		entry: {"file":"start-1ccd8366.js","js":["start-1ccd8366.js","chunks/vendor-4ae0a097.js"],"css":["assets/start-464e9d0a.css"]},
+		entry: {"file":"start-9457e82f.js","js":["start-9457e82f.js","chunks/vendor-ad9d9cc1.js"],"css":["assets/start-464e9d0a.css"]},
 		nodes: [
 			() => Promise.resolve().then(() => require('../server/nodes/0.js')),
 			() => Promise.resolve().then(() => require('../server/nodes/1.js')),

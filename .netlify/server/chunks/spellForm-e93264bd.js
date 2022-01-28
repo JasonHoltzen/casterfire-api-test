@@ -56,31 +56,29 @@ __export(exports, {
   b: () => dataError,
   c: () => characters,
   d: () => derived,
-  e: () => customSpells,
+  e: () => appliedFilters,
   f: () => filters,
-  g: () => appliedFilters,
-  h: () => getUiFilterText,
-  i: () => selectedSpell,
-  j: () => filteredSpells,
+  g: () => getUiFilterText,
+  h: () => selectedSpell,
+  i: () => filteredSpells,
   m: () => modal,
   s: () => staticLists,
   u: () => user,
   w: () => writable
 });
-var import_index_dfe95557 = __toModule(require("./index-dfe95557.js"));
+var import_index_b4d695ef = __toModule(require("./index-b4d695ef.js"));
 var import_CustomSpell_d270f8cd = __toModule(require("./CustomSpell-d270f8cd.js"));
-var import_mongooseId_3cd13daa = __toModule(require("./mongooseId-3cd13daa.js"));
 const subscriber_queue = [];
 function readable(value, start) {
   return {
     subscribe: writable(value, start).subscribe
   };
 }
-function writable(value, start = import_index_dfe95557.n) {
+function writable(value, start = import_index_b4d695ef.n) {
   let stop;
   const subscribers = new Set();
   function set(new_value) {
-    if ((0, import_index_dfe95557.g)(value, new_value)) {
+    if ((0, import_index_b4d695ef.d)(value, new_value)) {
       value = new_value;
       if (stop) {
         const run_queue = !subscriber_queue.length;
@@ -100,11 +98,11 @@ function writable(value, start = import_index_dfe95557.n) {
   function update(fn) {
     set(fn(value));
   }
-  function subscribe2(run, invalidate = import_index_dfe95557.n) {
+  function subscribe2(run, invalidate = import_index_b4d695ef.n) {
     const subscriber = [run, invalidate];
     subscribers.add(subscriber);
     if (subscribers.size === 1) {
-      stop = start(set) || import_index_dfe95557.n;
+      stop = start(set) || import_index_b4d695ef.n;
     }
     run(value);
     return () => {
@@ -125,7 +123,7 @@ function derived(stores, fn, initial_value) {
     let inited = false;
     const values = [];
     let pending = 0;
-    let cleanup = import_index_dfe95557.n;
+    let cleanup = import_index_b4d695ef.n;
     const sync = () => {
       if (pending) {
         return;
@@ -135,10 +133,10 @@ function derived(stores, fn, initial_value) {
       if (auto) {
         set(result);
       } else {
-        cleanup = (0, import_index_dfe95557.i)(result) ? result : import_index_dfe95557.n;
+        cleanup = (0, import_index_b4d695ef.i)(result) ? result : import_index_b4d695ef.n;
       }
     };
-    const unsubscribers = stores_array.map((store, i) => (0, import_index_dfe95557.d)(store, (value) => {
+    const unsubscribers = stores_array.map((store, i) => (0, import_index_b4d695ef.b)(store, (value) => {
       values[i] = value;
       pending &= ~(1 << i);
       if (inited) {
@@ -150,7 +148,7 @@ function derived(stores, fn, initial_value) {
     inited = true;
     sync();
     return function stop() {
-      (0, import_index_dfe95557.r)(unsubscribers);
+      (0, import_index_b4d695ef.r)(unsubscribers);
       cleanup();
     };
   });
@@ -194,40 +192,13 @@ const createDataErrorStore = () => {
   };
 };
 const dataError = createDataErrorStore();
-const addOrUpdateCustomSpell = (customSpells2, spellToUpdate) => {
-  let isFound = false;
-  if (customSpells2.length > 0) {
-    customSpells2 = customSpells2.map((s) => {
-      if (s._id === spellToUpdate._id) {
-        isFound = true;
-        return spellToUpdate;
-      } else {
-        return s;
-      }
-    });
-  }
-  return isFound ? [...customSpells2] : [...customSpells2, spellToUpdate];
-};
-const deleteCustomSpell = (customSpells2, spellToDelete) => {
-  return customSpells2.filter((s) => s._id !== spellToDelete._id);
-};
-const createCustomSpellStore = () => {
-  const { subscribe: subscribe2, set, update } = writable([]);
-  return {
-    subscribe: subscribe2,
-    set,
-    addOrUpdate: (spell) => update((n) => addOrUpdateCustomSpell(n, spell)),
-    deleteSpell: (spell) => update((n) => deleteCustomSpell(n, spell))
-  };
-};
-const customSpells = createCustomSpellStore();
 const user = writable({
   _id: "",
   name: "",
   email: "",
   date: ""
 });
-const Close = (0, import_index_dfe95557.c)(($$result, $$props, $$bindings, slots) => {
+const Close = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let { size = "1em" } = $$props;
   let { width = size } = $$props;
   let { height = size } = $$props;
@@ -243,7 +214,7 @@ const Close = (0, import_index_dfe95557.c)(($$result, $$props, $$bindings, slots
     $$bindings.color(color);
   if ($$props.viewBox === void 0 && $$bindings.viewBox && viewBox !== void 0)
     $$bindings.viewBox(viewBox);
-  return `<svg${(0, import_index_dfe95557.a)("width", width, 0)}${(0, import_index_dfe95557.a)("height", height, 0)}${(0, import_index_dfe95557.a)("viewBox", viewBox, 0)}><path d="${"M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"}"${(0, import_index_dfe95557.a)("fill", color, 0)}></path></svg>`;
+  return `<svg${(0, import_index_b4d695ef.a)("width", width, 0)}${(0, import_index_b4d695ef.a)("height", height, 0)}${(0, import_index_b4d695ef.a)("viewBox", viewBox, 0)}><path d="${"M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"}"${(0, import_index_b4d695ef.a)("fill", color, 0)}></path></svg>`;
 });
 var _staticLists = {
   spellTypes: ["Cantrip", "Focus", "Spell"],
@@ -2742,24 +2713,23 @@ const createSelectedCharacterStore = () => {
     reset: () => set(selectedCharacterDefaults)
   };
 };
-const getCharacters = async () => {
+const getCharacterList = async () => {
   try {
     const res = await fetch("/api/characters", {
       method: "GET",
       headers: {
-        "Content-Type": "application / json"
+        "Content-Type": "application/json"
       }
     });
     if (res.ok) {
       let data = await res.json();
-      console.log(data);
       return data;
     }
   } catch (err) {
     dataError.show(err);
   }
 };
-const addOrUpdateInDb = async (newChar) => {
+const saveCharacter = async (newChar) => {
   try {
     const res = await fetch("/api/characters", {
       method: "POST",
@@ -2791,27 +2761,62 @@ const deleteCharacter = async (id) => {
     dataError.show("Unable to delete user");
   }
 };
+const addSpellToCharacter = async (spellId, characterId) => {
+  try {
+    const res = await fetch("/api/characters/selected/addSpell", {
+      method: "POST",
+      body: JSON.stringify({ spellId, characterId }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  } catch (err) {
+    console.log(err);
+    dataError.show(err);
+  }
+};
+const removeSpellFromCharacter = async (spellId, characterId) => {
+  try {
+    const res = await fetch("/api/characters/selected/removeSpell", {
+      method: "POST",
+      body: JSON.stringify({ spellId, characterId }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  } catch (err) {
+    console.log(err);
+    dataError.show(err);
+  }
+};
 const createCharactersStore = () => {
   const { subscribe: subscribe2, set, update } = writable([]);
   return {
     subscribe: subscribe2,
     set,
     update,
+    reset: () => {
+      set([]);
+    },
     populate: async () => {
-      let data = await getCharacters();
-      let { characters: characters2 } = data;
+      let data = await getCharacterList();
+      let { characters: characters2 } = await data;
       if (characters2 && characters2.length > 0) {
         set(characters2);
       } else {
         set([]);
       }
     },
-    addOrUpdateCharacter: async (newCharacter) => {
-      let data = await addOrUpdateInDb(newCharacter);
+    saveOne: async (newCharacter) => {
+      let data = await saveCharacter(newCharacter);
       let { character } = data;
       update((charList) => {
         if (character) {
-          if (!newCharacter._id) {
+          if (!(newCharacter == null ? void 0 : newCharacter._id)) {
             return [...charList, character];
           }
           return charList.map((c) => {
@@ -2824,8 +2829,12 @@ const createCharactersStore = () => {
           return charList;
         }
       });
+      if (character)
+        selectedCharacter.set(character);
+      else
+        selectedCharacter.reset();
     },
-    deleteCharacter: async (idToDelete) => {
+    deleteOne: async (idToDelete) => {
       let data = await deleteCharacter(idToDelete);
       let { id } = data;
       update((charList) => {
@@ -2840,6 +2849,38 @@ const createCharactersStore = () => {
           return charList;
         }
       });
+      selectedCharacter.reset();
+    },
+    updateCharacterSpells: (characterId, newSpellList) => {
+      update((charList) => {
+        return charList.map((c) => {
+          if (c._id === characterId) {
+            c.spellbook = [...newSpellList];
+            selectedCharacter.set(c);
+          }
+          return c;
+        });
+      });
+    },
+    addSpellToOne: async (spellId, characterId) => {
+      let data = await addSpellToCharacter(spellId, characterId);
+      let { character } = data;
+      characters.updateCharacterSpells(characterId, character.spellbook);
+    },
+    removeSpellFromOne: async (spellId, characterId) => {
+      let data = await removeSpellFromCharacter(spellId, characterId);
+      let { character } = data;
+      characters.updateCharacterSpells(character._id, character.spellbook);
+    },
+    removeDeletedSpellFromAll: (spellId) => {
+      update((charList) => {
+        return charList.map((c) => {
+          c.spellbook.filter((s) => {
+            return s._id !== spellId;
+          });
+          return c;
+        });
+      });
     }
   };
 };
@@ -2851,7 +2892,6 @@ const selectedSpellDefaults = {};
 const getSpells = async () => {
   let spells = [];
   if (!spells.length > 0) {
-    console.log("pulling spells from server");
     spells = await fetch("/api/spells").then((r) => r.json().then((r2) => r2.spells)).catch((err) => dataError.showFatal(err));
   }
   return spells;
@@ -2876,6 +2916,123 @@ const createPfSpellsStore = () => {
 };
 const pf_spells = createPfSpellsStore();
 const selectedSpell = createSelectedSpellStore();
+const getCustomSpellList = async () => {
+  try {
+    const res = await fetch("/api/spells/custom", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (res.ok) {
+      let data = await res.json();
+      return data;
+    }
+  } catch (err) {
+    dataError.show(err);
+  }
+};
+const saveSpell = async (newSpell) => {
+  try {
+    const res = await fetch("/api/spells/custom", {
+      method: "POST",
+      body: JSON.stringify({ customSpell: newSpell }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (res.ok) {
+      let data = await res.json();
+      return data;
+    }
+  } catch (err) {
+    dataError.show(err);
+  }
+};
+const deleteCustomSpell = async (id) => {
+  try {
+    const res = await fetch("/api/spells/custom", {
+      method: "DELETE",
+      body: JSON.stringify({ id }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  } catch (err) {
+    dataError.show(err);
+  }
+};
+const createCustomSpellStore = () => {
+  const { subscribe: subscribe2, set, update } = writable([]);
+  return {
+    subscribe: subscribe2,
+    set,
+    reset: () => {
+      set([]);
+    },
+    populate: async () => {
+      let data = await getCustomSpellList();
+      let { customSpells: customSpells2 } = await data;
+      if (customSpells2 && customSpells2.length > 0) {
+        set(customSpells2);
+      } else {
+        set([]);
+      }
+    },
+    saveOne: async (newSpell) => {
+      let data = await saveSpell(newSpell);
+      let { customSpell } = data;
+      console.log(customSpell);
+      update((spellList) => {
+        if (customSpell) {
+          let alreadyExists = false;
+          let spells = spellList.map((s) => {
+            if (s._id === customSpell._id) {
+              alreadyExists = true;
+              return customSpell;
+            }
+            return s;
+          });
+          if (alreadyExists) {
+            return spells;
+          } else {
+            return [...spells, __spreadValues({}, customSpell)];
+          }
+        } else {
+          return spellList;
+        }
+      });
+      if (customSpell)
+        selectedSpell.set(customSpell);
+      else
+        selectedSpell.reset();
+    },
+    deleteOne: async (idToDelete) => {
+      let data = await deleteCustomSpell(idToDelete);
+      let { spellId, removedFromCount } = data;
+      console.log(data);
+      update((spellList) => {
+        if (spellId) {
+          return spellList.filter((s) => {
+            return s._id !== spellId;
+          });
+        } else {
+          if (!spellList.length > 0) {
+            return [];
+          }
+          return spellList;
+        }
+      });
+      selectedSpell.reset();
+      if (spellId && removedFromCount && removedFromCount > 0) {
+        characters.removeDeletedSpellFromAll(spellId);
+      }
+    }
+  };
+};
+const customSpells = createCustomSpellStore();
 const deepEquals = (x, y) => {
   if (x === null || x === void 0 || y === null || y === void 0) {
     return x === y;
@@ -3123,7 +3280,7 @@ const filterSpells = (pfSpells, customSpells2, filters2) => {
   const filteredSpells2 = spells.filter((_spell) => {
     return applyFilters(_spell, appliedFilters2);
   });
-  return filteredSpells2;
+  return filteredSpells2.sort();
 };
 const createFilterStore = () => {
   const { subscribe: subscribe2, set, update } = writable(clone(filterDefaults));
@@ -3180,17 +3337,16 @@ const createSpellFormStore = () => {
     subscribe: subscribe2,
     set,
     update,
-    reset: () => set(__spreadValues({}, initialFormStore)),
+    reset: () => set(clone(initialFormStore)),
     editSpell: (spell) => set(clone(spell)),
     copySpell: (spell) => {
-      spell.custom = true;
-      spell._id = (0, import_mongooseId_3cd13daa.g)();
-      set(clone(spell));
+      let newSpell = clone(spell);
+      delete newSpell._id;
+      newSpell.custom = true;
+      set(newSpell);
     },
     newSpell: () => {
-      let spell = clone(initialFormStore);
-      spell._id = (0, import_mongooseId_3cd13daa.g)();
-      set(spell);
+      set(clone(initialFormStore));
     }
   };
 };

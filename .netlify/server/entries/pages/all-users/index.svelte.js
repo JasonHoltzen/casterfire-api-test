@@ -25,10 +25,10 @@ __export(exports, {
   default: () => All_users,
   load: () => load
 });
-var import_index_dfe95557 = __toModule(require("../../../chunks/index-dfe95557.js"));
+var import_index_b4d695ef = __toModule(require("../../../chunks/index-b4d695ef.js"));
 var index_svelte_svelte_type_style_lang = "";
 const css = {
-  code: "h2.svelte-u3dcir.svelte-u3dcir{background:var(--c-gray-darker);margin:0 0 3px;position:-webkit-sticky;position:sticky;top:0}h2.svelte-u3dcir.svelte-u3dcir,ul.svelte-u3dcir.svelte-u3dcir{border-radius:10px;color:var(--c-gray-lighter);padding:10px}ul.svelte-u3dcir.svelte-u3dcir{background:var(--c-gray-dark);flex-flow:column nowrap}ul.svelte-u3dcir.svelte-u3dcir,ul.svelte-u3dcir li.svelte-u3dcir{display:flex}ul.svelte-u3dcir li.svelte-u3dcir{border-bottom:1px solid var(--c-p-light);flex-flow:row nowrap;padding:3px}ul.svelte-u3dcir li.svelte-u3dcir:last-of-type{border-bottom:none}ul.svelte-u3dcir li.svelte-u3dcir:hover{background:rgba(64,149,191,.1)}ul.svelte-u3dcir li .name.svelte-u3dcir{width:40%}ul.svelte-u3dcir li .date.svelte-u3dcir{flex:1 0 auto}",
+  code: "h2.svelte-1ur2yzw.svelte-1ur2yzw{background:var(--c-gray-darker);margin:0 0 3px;position:-webkit-sticky;position:sticky;top:0}h2.svelte-1ur2yzw.svelte-1ur2yzw,table.svelte-1ur2yzw.svelte-1ur2yzw{border-radius:10px;color:var(--c-gray-lighter);padding:10px}table.svelte-1ur2yzw.svelte-1ur2yzw{background:var(--c-gray-dark);width:100%}table.svelte-1ur2yzw thead.svelte-1ur2yzw{border-bottom:3px solid rgba(179,213,230,.2)}table.svelte-1ur2yzw tbody.svelte-1ur2yzw,table.svelte-1ur2yzw thead.svelte-1ur2yzw{display:flex;flex-flow:column nowrap;gap:5px;padding:.5rem;width:100%}table.svelte-1ur2yzw tr.svelte-1ur2yzw{border-bottom:1px solid var(--c-p-light);display:grid;gap:.5rem;grid-template-columns:1fr 2fr;width:100%}table.svelte-1ur2yzw tr.svelte-1ur2yzw:last-of-type{border-bottom:none}table.svelte-1ur2yzw tr.svelte-1ur2yzw:hover{background:rgba(64,149,191,.1)}table.svelte-1ur2yzw th.svelte-1ur2yzw{color:1px solid var(--c-p-light);font-size:1.05em;font-weight:700;text-align:left}",
   map: null
 };
 async function load({ fetch }) {
@@ -36,13 +36,15 @@ async function load({ fetch }) {
   let playerList = await fetch("/api/user/all-users").then((r) => r.json().then((r2) => r2.playerList)).catch((err) => errors.push(err));
   return { props: { errors, playerList } };
 }
-const All_users = (0, import_index_dfe95557.c)(($$result, $$props, $$bindings, slots) => {
+const All_users = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let { playerList } = $$props;
   if ($$props.playerList === void 0 && $$bindings.playerList && playerList !== void 0)
     $$bindings.playerList(playerList);
   $$result.css.add(css);
-  return `<h2 class="${"svelte-u3dcir"}">User List</h2>
-${playerList ? `<ul class="${"svelte-u3dcir"}">${(0, import_index_dfe95557.f)(playerList, (player) => `<li class="${"svelte-u3dcir"}"><div class="${"name svelte-u3dcir"}">${(0, import_index_dfe95557.e)(player.name)}</div>
-				<div class="${"date svelte-u3dcir"}">${(0, import_index_dfe95557.e)(player.date)}</div>
-			</li>`)}</ul>` : ``}`;
+  return `<h2 class="${"svelte-1ur2yzw"}">User List</h2>
+${playerList ? `<table class="${"columnLabel svelte-1ur2yzw"}"><thead class="${"svelte-1ur2yzw"}"><tr class="${"svelte-1ur2yzw"}"><th class="${"svelte-1ur2yzw"}">Name</th>
+				<th class="${"svelte-1ur2yzw"}">Date Joined</th></tr></thead>
+		<tbody class="${"svelte-1ur2yzw"}">${(0, import_index_b4d695ef.g)(playerList, (player) => `<tr class="${"svelte-1ur2yzw"}"><td class="${"name"}">${(0, import_index_b4d695ef.e)(player.name)}</td>
+					<td class="${"date"}">${(0, import_index_b4d695ef.e)(player.date)}</td>
+				</tr>`)}</tbody></table>` : ``}`;
 });

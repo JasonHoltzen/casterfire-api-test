@@ -41,12 +41,12 @@ async function get({ locals }) {
   }
   try {
     await (0, import_db_8890404f.c)();
-    let chars = await import_Character_d14be3f1.C.find({ user: locals.userId }).clone().lean();
+    let characters = await import_Character_d14be3f1.C.find({ user: locals.userId }).clone().lean();
     return {
       status: 200,
       body: {
         success: true,
-        characters: chars
+        characters
       }
     };
   } catch (error) {
@@ -92,10 +92,10 @@ async function post({ body, locals }) {
 async function del({ body, locals }) {
   try {
     if (!body) {
-      return (0, import_erroh_c062e309.b)("A head without a body...?");
+      return (0, import_erroh_c062e309.b)();
     }
     if (!locals.userId) {
-      (0, import_erroh_c062e309.u)("You shall not pass");
+      (0, import_erroh_c062e309.u)();
     }
     const { id } = body;
     if (!id) {
@@ -107,7 +107,7 @@ async function del({ body, locals }) {
       if (!err && !!doc) {
         return doc;
       } else {
-        return err;
+        return null;
       }
     }).clone().lean();
     if (await deletedCharacter) {

@@ -24,18 +24,20 @@ var __toModule = (module2) => {
 __export(exports, {
   default: () => _layout_reset
 });
-var import_index_dfe95557 = __toModule(require("../../../chunks/index-dfe95557.js"));
+var import_index_b4d695ef = __toModule(require("../../../chunks/index-b4d695ef.js"));
 var import_lockuptext_9f3078c3 = __toModule(require("../../../chunks/lockuptext-9f3078c3.js"));
 var __layout_reset_svelte_svelte_type_style_lang = "";
 const css = {
   code: ".container.svelte-1w0vinl.svelte-1w0vinl{--header-height:80px;flex:1 1 auto;flex-flow:column nowrap;height:100%;margin:0 auto;max-height:100%;max-width:1280px}.container.svelte-1w0vinl.svelte-1w0vinl,header.svelte-1w0vinl.svelte-1w0vinl{display:flex;position:relative}header.svelte-1w0vinl.svelte-1w0vinl{align-items:center;background:var(--c-gray-darkest);border-radius:var(--bdrs);color:var(--c-gray-lighter);flex-flow:row nowrap;justify-content:space-between;max-height:var(--header-height);padding:10px;width:100%;z-index:20}header.svelte-1w0vinl a.back.svelte-1w0vinl{border-bottom:1px solid transparent;border-top:1px solid transparent;padding:0 5px;position:absolute;text-decoration:none;text-transform:uppercase;transition:border-color .2s ease-in-out}header.svelte-1w0vinl a.back.svelte-1w0vinl,header.svelte-1w0vinl a.back.svelte-1w0vinl:visited{color:var(--c-p-light)}header.svelte-1w0vinl a.back.svelte-1w0vinl:active,header.svelte-1w0vinl a.back.svelte-1w0vinl:hover{border-bottom-color:var(--c-p-lighter);border-left-color:solid;border-right-color:solid;border-top-color:1px}header.svelte-1w0vinl .lockup.svelte-1w0vinl{align-items:center;align-self:center;display:flex;flex-flow:row nowrap;justify-content:center;margin:0 auto}header.svelte-1w0vinl .lockup h1.svelte-1w0vinl{clip:rect(0 0 0 0);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}header.svelte-1w0vinl .lockup .logo.svelte-1w0vinl{height:60px;margin:0 10px;width:auto}main.svelte-1w0vinl.svelte-1w0vinl{border-radius:10px;flex:1 1 auto;margin:10px auto;overflow:auto;position:relative;width:clamp(200px,40%,600px)}",
   map: null
 };
-const _layout_reset = (0, import_index_dfe95557.c)(($$result, $$props, $$bindings, slots) => {
+const _layout_reset = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `<div class="${"container svelte-1w0vinl"}"><header class="${"svelte-1w0vinl"}"><a href="${"/"}" class="${"back svelte-1w0vinl"}">\u2190\xA0Back</a>
-		<div class="${"lockup svelte-1w0vinl"}"><img${(0, import_index_dfe95557.a)("src", import_lockuptext_9f3078c3.L, 0)} alt="${"CasterFire Logo"}" class="${"logo svelte-1w0vinl"}">
-			<img${(0, import_index_dfe95557.a)("src", import_lockuptext_9f3078c3.a, 0)} alt="${"CasterFire Lockup Text"}" class="${"logo svelte-1w0vinl"}">
+  return `${$$result.head += `${$$result.title = `<title>CasterFire</title>`, ""}<link rel="${"preconnect"}" href="${"https://fonts.gstatic.com"}" data-svelte="svelte-ipyj0x"><link href="${"https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Raleway:wght@400;700;900&display=swap"}" rel="${"stylesheet"}" data-svelte="svelte-ipyj0x">`, ""}
+
+<div class="${"container svelte-1w0vinl"}"><header class="${"svelte-1w0vinl"}"><a href="${"/"}" class="${"back svelte-1w0vinl"}">\u2190\xA0Back</a>
+		<div class="${"lockup svelte-1w0vinl"}"><img${(0, import_index_b4d695ef.a)("src", import_lockuptext_9f3078c3.L, 0)} alt="${"CasterFire Logo"}" class="${"logo svelte-1w0vinl"}">
+			<img${(0, import_index_b4d695ef.a)("src", import_lockuptext_9f3078c3.a, 0)} alt="${"CasterFire Lockup Text"}" class="${"logo svelte-1w0vinl"}">
 			<h1 class="${"svelte-1w0vinl"}">CasterFire</h1></div></header>
 	<main class="${"svelte-1w0vinl"}">${slots.default ? slots.default({}) : ``}</main></div>
 
