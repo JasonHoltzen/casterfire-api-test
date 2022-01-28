@@ -40,7 +40,7 @@ __export(exports, {
   load: () => load
 });
 var import_index_b4d695ef = __toModule(require("../../chunks/index-b4d695ef.js"));
-var import_spellForm_e93264bd = __toModule(require("../../chunks/spellForm-e93264bd.js"));
+var import_spellForm_4699a2ec = __toModule(require("../../chunks/spellForm-4699a2ec.js"));
 var import_lockuptext_9f3078c3 = __toModule(require("../../chunks/lockuptext-9f3078c3.js"));
 var import_Character_2047c1cd = __toModule(require("../../chunks/Character-2047c1cd.js"));
 var import_joi = __toModule(require("joi"));
@@ -79,7 +79,7 @@ const initFormStore = {
   user: ""
 };
 const createCharacterFormStore = () => {
-  const { subscribe: subscribe2, set } = (0, import_spellForm_e93264bd.w)(initFormStore);
+  const { subscribe: subscribe2, set } = (0, import_spellForm_4699a2ec.w)(initFormStore);
   return {
     subscribe: subscribe2,
     set,
@@ -119,10 +119,10 @@ const calculateDropdowns = (characterFormValues2, staticLists2) => {
   };
 };
 const characterFormValues = createCharacterFormStore();
-(0, import_spellForm_e93264bd.d)([characterFormValues, import_spellForm_e93264bd.s], ([$characterFormValues, $staticLists]) => {
+(0, import_spellForm_4699a2ec.d)([characterFormValues, import_spellForm_4699a2ec.s], ([$characterFormValues, $staticLists]) => {
   return calculateDropdowns($characterFormValues, $staticLists);
 });
-(0, import_spellForm_e93264bd.d)([characterFormValues], ([$characterFormValues]) => {
+(0, import_spellForm_4699a2ec.d)([characterFormValues], ([$characterFormValues]) => {
   const tempFormVals = __spreadValues({}, $characterFormValues);
   let messages = [];
   delete tempFormVals.__v;
@@ -170,11 +170,11 @@ const Nav = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) 
   let $$unsubscribe_characterFormValues;
   let $$unsubscribe_user;
   let $$unsubscribe_characters;
-  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.m, (value) => value);
-  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.a, (value) => value);
+  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.m, (value) => value);
+  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.a, (value) => value);
   $$unsubscribe_characterFormValues = (0, import_index_b4d695ef.b)(characterFormValues, (value) => value);
-  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.u, (value) => value);
-  $$unsubscribe_characters = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.c, (value) => value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.u, (value) => value);
+  $$unsubscribe_characters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.c, (value) => value);
   let menuIconProps = {
     color: "var(--c-gray-lighter)",
     width: "30px",
@@ -260,9 +260,9 @@ const PlayerInfo = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
   let $selectedCharacter, $$unsubscribe_selectedCharacter;
   let $user, $$unsubscribe_user;
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.a, (value) => $selectedCharacter = value);
-  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.u, (value) => $user = value);
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.f, (value) => $filters = value);
+  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.a, (value) => $selectedCharacter = value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.u, (value) => $user = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
   const iconProps = {
     color: "var(--c-gray-lighter)",
     width: "20px",
@@ -294,7 +294,7 @@ const css$2 = {
 };
 const Modal = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $modal, $$unsubscribe_modal;
-  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.m, (value) => $modal = value);
+  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.m, (value) => $modal = value);
   $$result.css.add(css$2);
   $$unsubscribe_modal();
   return `${$modal.show ? `<div class="${"modal svelte-1b7roaa"}">${(0, import_index_b4d695ef.v)($modal.component || import_index_b4d695ef.m, "svelte:component").$$render($$result, {}, {}, {})}</div>` : ``}`;
@@ -306,7 +306,7 @@ const css$1 = {
 };
 const ErrorToast = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $dataError, $$unsubscribe_dataError;
-  $$unsubscribe_dataError = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.b, (value) => $dataError = value);
+  $$unsubscribe_dataError = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.b, (value) => $dataError = value);
   const iconProps = {
     color: "var(--c-gray-lighter)",
     width: "20px",
@@ -317,7 +317,7 @@ const ErrorToast = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
   $$result.css.add(css$1);
   $$unsubscribe_dataError();
   return `<div class="${"screenBlur svelte-1g6nn67"}"><div class="${"container svelte-1g6nn67"}"><div class="${"topBar svelte-1g6nn67"}"><h3 class="${"svelte-1g6nn67"}">Uh oh! ${!!($dataError == null ? void 0 : $dataError.code) ? `A ${(0, import_index_b4d695ef.e)($dataError.code)} error...` : ``}</h3>
-			<button aria-label="${"close error"}" class="${"closeButton svelte-1g6nn67"}">${(0, import_index_b4d695ef.v)(import_spellForm_e93264bd.C, "CloseIcon").$$render($$result, Object.assign(iconProps), {}, {})}</button></div>
+			<button aria-label="${"close error"}" class="${"closeButton svelte-1g6nn67"}">${(0, import_index_b4d695ef.v)(import_spellForm_4699a2ec.C, "CloseIcon").$$render($$result, Object.assign(iconProps), {}, {})}</button></div>
 		${!!($dataError == null ? void 0 : $dataError.message) ? `<p class="${"svelte-1g6nn67"}">${(0, import_index_b4d695ef.e)($dataError.message)}</p>` : `<p class="${"svelte-1g6nn67"}">Oof...an error we didn&#39;t plan for. Sorry about that.</p>`}</div>
 </div>`;
 });
@@ -331,13 +331,13 @@ async function load({ session, fetch }) {
     try {
       let currentUser = await fetch("/api/user").then((r) => r.json());
       if (currentUser) {
-        import_spellForm_e93264bd.u.set(currentUser);
+        import_spellForm_4699a2ec.u.set(currentUser);
       } else {
-        import_spellForm_e93264bd.b.showFatal("User not found");
+        import_spellForm_4699a2ec.b.showFatal("User not found");
         return {};
       }
     } catch (err) {
-      import_spellForm_e93264bd.b.showFatal("Error connecting to database");
+      import_spellForm_4699a2ec.b.showFatal("Error connecting to database");
       return {};
     }
   }
@@ -346,8 +346,8 @@ async function load({ session, fetch }) {
 const _layout = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $$unsubscribe_user;
   let $dataError, $$unsubscribe_dataError;
-  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.u, (value) => value);
-  $$unsubscribe_dataError = (0, import_index_b4d695ef.b)(import_spellForm_e93264bd.b, (value) => $dataError = value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.u, (value) => value);
+  $$unsubscribe_dataError = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.b, (value) => $dataError = value);
   $$result.css.add(css);
   $$unsubscribe_user();
   $$unsubscribe_dataError();

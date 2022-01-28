@@ -35,12 +35,7 @@ const createSelectedCharacterStore = () => {
 // methods for character
 const getCharacterList = async () => {
 	try {
-		const res = await fetch('/api/characters', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
+		const res = await fetch('/api/characters');
 
 		if (res.ok) {
 			let data = await res.json();

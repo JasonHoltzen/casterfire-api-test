@@ -10,7 +10,7 @@ export async function get({ locals }) {
 
 	try {
 		await connectDB();
-		let characters = await Character.find({ user: locals.userId }).clone().lean();
+		let characters = await Character.find({ user: locals.userId }).lean().clone();
 
 		return {
 			status: 200,
@@ -55,8 +55,8 @@ export async function post({ body, locals }) {
 				}
 			}
 		)
-			.clone()
-			.lean();
+			.lean()
+			.clone();
 
 		if (await newChar) {
 			return {
@@ -98,8 +98,8 @@ export async function del({ body, locals }) {
 				return null;
 			}
 		})
-			.clone()
-			.lean();
+			.lean()
+			.clone();
 
 		if (await deletedCharacter) {
 			return {

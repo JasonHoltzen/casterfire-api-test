@@ -11,7 +11,7 @@ export async function get({ locals }) {
 
 	try {
 		await connectDB();
-		const customSpells = await CustomSpell.find({ user: locals.userId }).clone().lean();
+		const customSpells = await CustomSpell.find({ user: locals.userId }).lean().clone();
 
 		return {
 			status: 200,
@@ -57,8 +57,8 @@ export async function post({ body, locals }) {
 				}
 			}
 		)
-			.clone()
-			.lean();
+			.lean()
+			.clone();
 
 		if (await newSpell) {
 			if (!newSpell) return Erroh.badRequest();
@@ -102,8 +102,8 @@ export async function del({ body, locals }) {
 				}
 			}
 		)
-			.clone()
-			.lean();
+			.lean()
+			.clone();
 
 		const spellQuery = { _id: id, user: locals.userId };
 		const deletedSpell = await CustomSpell.findOneAndRemove(spellQuery, (err, doc) => {

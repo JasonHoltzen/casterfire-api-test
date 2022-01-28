@@ -41,7 +41,7 @@ async function get({ locals }) {
   }
   try {
     await (0, import_db_8890404f.c)();
-    let characters = await import_Character_d14be3f1.C.find({ user: locals.userId }).clone().lean();
+    let characters = await import_Character_d14be3f1.C.find({ user: locals.userId }).lean().clone();
     return {
       status: 200,
       body: {
@@ -74,7 +74,7 @@ async function post({ body, locals }) {
       } else {
         return doc;
       }
-    }).clone().lean();
+    }).lean().clone();
     if (await newChar) {
       return {
         status: 200,
@@ -109,7 +109,7 @@ async function del({ body, locals }) {
       } else {
         return null;
       }
-    }).clone().lean();
+    }).lean().clone();
     if (await deletedCharacter) {
       return {
         status: 200,

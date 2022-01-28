@@ -5,12 +5,7 @@ import { selectedSpell } from '$stores/spells.js';
 
 const getCustomSpellList = async () => {
 	try {
-		const res = await fetch('/api/spells/custom', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
+		const res = await fetch('/api/spells/custom');
 
 		if (res.ok) {
 			let data = await res.json();

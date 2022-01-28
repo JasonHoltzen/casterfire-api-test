@@ -2715,12 +2715,7 @@ const createSelectedCharacterStore = () => {
 };
 const getCharacterList = async () => {
   try {
-    const res = await fetch("/api/characters", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    const res = await fetch("/api/characters");
     if (res.ok) {
       let data = await res.json();
       return data;
@@ -2918,12 +2913,7 @@ const pf_spells = createPfSpellsStore();
 const selectedSpell = createSelectedSpellStore();
 const getCustomSpellList = async () => {
   try {
-    const res = await fetch("/api/spells/custom", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    const res = await fetch("/api/spells/custom");
     if (res.ok) {
       let data = await res.json();
       return data;

@@ -137,7 +137,7 @@
     "isEntry": true,
     "imports": [
       "_index-b4d695ef.js",
-      "_spellForm-e93264bd.js",
+      "_spellForm-4699a2ec.js",
       "_lockuptext-9f3078c3.js",
       "_Character-2047c1cd.js",
       "_CustomSpell-d270f8cd.js"
@@ -160,7 +160,7 @@
     "isEntry": true,
     "imports": [
       "_index-b4d695ef.js",
-      "_spellForm-e93264bd.js",
+      "_spellForm-4699a2ec.js",
       "_CustomSpell-d270f8cd.js"
     ],
     "css": [
@@ -223,8 +223,8 @@
   "_CustomSpell-d270f8cd.js": {
     "file": "chunks/CustomSpell-d270f8cd.js"
   },
-  "_spellForm-e93264bd.js": {
-    "file": "chunks/spellForm-e93264bd.js",
+  "_spellForm-4699a2ec.js": {
+    "file": "chunks/spellForm-4699a2ec.js",
     "imports": [
       "_index-b4d695ef.js",
       "_CustomSpell-d270f8cd.js"
