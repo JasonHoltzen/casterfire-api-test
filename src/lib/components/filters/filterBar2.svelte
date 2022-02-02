@@ -1,4 +1,5 @@
 <script>
+	import { user } from '$stores/user.js';
 	import ActionsDD from '$lib/components/filters/ddActions.svelte';
 	import ComponentsDD from '$lib/components/filters/ddComponents.svelte';
 	import FiltersApplied from '$components/filters/filtersApplied.svelte';
@@ -88,13 +89,15 @@
 	{#if filterBarOpen}
 		<hr transition:slide />
 		<div class="filterBox" transition:slide>
-			<SourcesDD labelText="Sources" />
-			<span class="separator" />
+			{#if $user?._id !== ''}
+				<SourcesDD labelText="Sources" />
+				<span class="separator" />
+			{/if}
 			<ActionsDD labelText="Actions" />
 			<ComponentsDD labelText="Components" />
 			<LevelDD labelText="Spell Level" />
-			<TraitsDD labelText="Traits" />
 			<TraditionsDD labelText="Traditions" />
+			<TraitsDD labelText="Traits" />
 		</div>
 	{/if}
 </menu>

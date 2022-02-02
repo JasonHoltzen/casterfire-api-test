@@ -102,7 +102,7 @@
 								on:click|preventDefault={clearSelected}
 							>
 								<ClearButtonIcon {...characterIconProps} />
-								<span class="text"> Clear Selected </span>
+								<span class="text"> Clear Selection</span>
 							</button>
 						{/if}
 					</li>

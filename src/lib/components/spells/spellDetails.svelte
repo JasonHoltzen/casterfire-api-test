@@ -103,7 +103,7 @@
 			{/if}
 			<button on:click|preventDefault={copyNewSpell} class="copy">
 				<SpellCopyEditIcon />
-				<span class="text"> Copy to custom </span>
+				<span class="text"> Copy to Custom </span>
 			</button>
 			{#if custom}
 				<button on:click|preventDefault={deleteCustomSpell} class="delete">

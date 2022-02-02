@@ -2,7 +2,6 @@
 	import Input from '$components/ui/basic/validatedInput.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { dataError } from '$stores/errors.js';
-	import { getText } from '$utils/erroh.js';
 	import { validate } from '$schemas/_validate.js';
 	import { authSchema } from '$schemas/Auth.js';
 
@@ -28,11 +27,10 @@
 			if (res.ok) {
 				dispatch('success');
 			} else {
-				const { statusText } = res;
-				dataError.showFatal(getText(statusText));
+				dataError.show('Invalid username or password');
 			}
 		} catch (err) {
-			console.log(err);
+			dataError.showFatal(err);
 		}
 	};
 </script>

@@ -16,11 +16,8 @@
 
 <FilterDropdown {labelText} {id}>
 	<fieldset slot="content">
-		<legend>Show any with</legend>
+		<legend>Show with any of</legend>
 		<ul class="options">
-			<li class="showAll">
-				<ButtonShowAll on:click={showAll} bind:btnDisabled>Show All</ButtonShowAll>
-			</li>
 			{#each _actions as act}
 				<li class="action">
 					<input
@@ -35,6 +32,9 @@
 					</label>
 				</li>
 			{/each}
+			<li class="showAll">
+				<ButtonShowAll on:click={showAll} bind:btnDisabled>Show All</ButtonShowAll>
+			</li>
 		</ul>
 	</fieldset>
 </FilterDropdown>

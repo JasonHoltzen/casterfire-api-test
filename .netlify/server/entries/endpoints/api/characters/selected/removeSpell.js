@@ -52,7 +52,6 @@ async function post({ locals, body }) {
       else
         return doc;
     }).clone().lean();
-    console.log(updatedCharacter);
     return {
       status: 200,
       body: {

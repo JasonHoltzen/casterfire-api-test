@@ -33,8 +33,6 @@ export async function post({ locals, body }) {
 			.clone()
 			.lean();
 
-		console.log(updatedCharacter);
-
 		return {
 			status: 200,
 			body: {

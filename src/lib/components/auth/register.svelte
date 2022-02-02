@@ -43,7 +43,7 @@
 				}
 			}
 		} catch (err) {
-			console.log(err);
+			dataError.showFatal(err);
 		}
 	};
 </script>

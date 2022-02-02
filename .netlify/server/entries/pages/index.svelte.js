@@ -25,7 +25,7 @@ __export(exports, {
   default: () => Routes
 });
 var import_index_b4d695ef = __toModule(require("../../chunks/index-b4d695ef.js"));
-var import_spellForm_4699a2ec = __toModule(require("../../chunks/spellForm-4699a2ec.js"));
+var import_spellForm_f8ba31d6 = __toModule(require("../../chunks/spellForm-f8ba31d6.js"));
 var import_marked = __toModule(require("marked"));
 var import_CustomSpell_d270f8cd = __toModule(require("../../chunks/CustomSpell-d270f8cd.js"));
 var import_joi = __toModule(require("joi"));
@@ -391,7 +391,7 @@ const css$e = {
 const DdActions = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let btnDisabled;
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   let { labelText = "No label text" } = $$props;
   let { id = "actions" } = $$props;
   if ($$props.labelText === void 0 && $$bindings.labelText && labelText !== void 0)
@@ -405,16 +405,16 @@ const DdActions = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, s
     $$settled = true;
     btnDisabled = $filters.actions.length === 0;
     $$rendered = `${(0, import_index_b4d695ef.v)(FilterDropdown, "FilterDropdown").$$render($$result, { labelText, id }, {}, {
-      content: () => `<fieldset slot="${"content"}" class="${"svelte-48som7"}"><legend>Show any with</legend>
-		<ul class="${"options svelte-48som7"}"><li class="${"showAll svelte-48som7"}">${(0, import_index_b4d695ef.v)(ButtonShowAll, "ButtonShowAll").$$render($$result, { btnDisabled }, {
+      content: () => `<fieldset slot="${"content"}" class="${"svelte-48som7"}"><legend>Show with any of</legend>
+		<ul class="${"options svelte-48som7"}">${(0, import_index_b4d695ef.g)(const_actions, (act) => `<li class="${"action"}"><input type="${"checkbox"}" id="${"action" + (0, import_index_b4d695ef.e)(act)}"${(0, import_index_b4d695ef.a)("name", act, 0)}${(0, import_index_b4d695ef.a)("value", act, 0)} class="${"svelte-48som7"}"${~$filters.actions.indexOf(act) ? (0, import_index_b4d695ef.a)("checked", true, 1) : ""}>
+					<label for="${"action" + (0, import_index_b4d695ef.e)(act)}" class="${(0, import_index_b4d695ef.e)((0, import_index_b4d695ef.f)(act)) + " svelte-48som7"}">${(0, import_index_b4d695ef.v)(SpellAction, "SpellAction").$$render($$result, { action: act }, {}, {})}</label>
+				</li>`)}
+			<li class="${"showAll svelte-48som7"}">${(0, import_index_b4d695ef.v)(ButtonShowAll, "ButtonShowAll").$$render($$result, { btnDisabled }, {
         btnDisabled: ($$value) => {
           btnDisabled = $$value;
           $$settled = false;
         }
-      }, { default: () => `Show All` })}</li>
-			${(0, import_index_b4d695ef.g)(const_actions, (act) => `<li class="${"action"}"><input type="${"checkbox"}" id="${"action" + (0, import_index_b4d695ef.e)(act)}"${(0, import_index_b4d695ef.a)("name", act, 0)}${(0, import_index_b4d695ef.a)("value", act, 0)} class="${"svelte-48som7"}"${~$filters.actions.indexOf(act) ? (0, import_index_b4d695ef.a)("checked", true, 1) : ""}>
-					<label for="${"action" + (0, import_index_b4d695ef.e)(act)}" class="${(0, import_index_b4d695ef.e)((0, import_index_b4d695ef.f)(act)) + " svelte-48som7"}">${(0, import_index_b4d695ef.v)(SpellAction, "SpellAction").$$render($$result, { action: act }, {}, {})}</label>
-				</li>`)}</ul></fieldset>`
+      }, { default: () => `Show All` })}</li></ul></fieldset>`
     })}`;
   } while (!$$settled);
   $$unsubscribe_filters();
@@ -428,7 +428,7 @@ const css$d = {
 const DdComponents = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let btnDisabled;
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   let { labelText = "Components" } = $$props;
   let { id = "Components" } = $$props;
   const iconProps = {
@@ -553,7 +553,7 @@ const css$b = {
 };
 const FiltersApplied = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $appliedFilters, $$unsubscribe_appliedFilters;
-  $$unsubscribe_appliedFilters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.e, (value) => $appliedFilters = value);
+  $$unsubscribe_appliedFilters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.e, (value) => $appliedFilters = value);
   const RemoveIconProps = {
     color: "var(--c-gray-dark)",
     width: "20px",
@@ -592,7 +592,7 @@ const FiltersApplied = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindin
 		${(0, import_index_b4d695ef.g)($appliedFilters, (_filter) => `<li class="${"svelte-1a77gl0"}">${(0, import_index_b4d695ef.v)(RemoveFilterButton, "RemoveFilterButton").$$render($$result, {}, {}, {
     hoveredIcon: () => `${(0, import_index_b4d695ef.v)(CloseCircle, "RemoveIconHover").$$render($$result, Object.assign(removeIconHoverProps, { slot: "hoveredIcon" }), {}, {})}`,
     defaultIcon: () => `${(0, import_index_b4d695ef.v)(CloseCircleOutline, "RemoveIcon").$$render($$result, Object.assign(RemoveIconProps, { slot: "defaultIcon" }), {}, {})}`,
-    buttonText: () => `${(0, import_index_b4d695ef.e)((0, import_spellForm_4699a2ec.g)(_filter))}
+    buttonText: () => `${(0, import_index_b4d695ef.e)((0, import_spellForm_f8ba31d6.g)(_filter))}
 					`
   })}
 			</li>`)}</ul>` : ``}`;
@@ -732,7 +732,7 @@ const css$9 = {
 };
 const DdLevel = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   let { labelText = "No Label Text" } = $$props;
   let { id = "level" } = $$props;
   const iconButtonProps = {
@@ -790,7 +790,7 @@ const css$8 = {
 };
 const SearchBar = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   $$result.css.add(css$8);
   $$unsubscribe_filters();
   return `<label class="${"svelte-obccrn"}">Search
@@ -862,8 +862,8 @@ const css$6 = {
 const DdSources = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let $filters, $$unsubscribe_filters;
   let $selectedCharacter, $$unsubscribe_selectedCharacter;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
-  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.a, (value) => $selectedCharacter = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
+  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.a, (value) => $selectedCharacter = value);
   let { labelText = "No Label Text" } = $$props;
   let { id = "sources" } = $$props;
   if ($$props.labelText === void 0 && $$bindings.labelText && labelText !== void 0)
@@ -917,7 +917,7 @@ const css$5 = {
 const DdTraits = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let btnDisabled;
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   let { labelText = "Traits" } = $$props;
   let { id = "traits" } = $$props;
   if ($$props.labelText === void 0 && $$bindings.labelText && labelText !== void 0)
@@ -960,7 +960,7 @@ const css$4 = {
 const DdTraditions = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
   let btnDisabled;
   let $filters, $$unsubscribe_filters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   let { labelText = "Traditions" } = $$props;
   let { id = "traditions" } = $$props;
   if ($$props.labelText === void 0 && $$bindings.labelText && labelText !== void 0)
@@ -1021,9 +1021,9 @@ const FilterBar2 = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
   let $filters, $$unsubscribe_filters;
   let $selectedCharacter, $$unsubscribe_selectedCharacter;
   let $appliedFilters, $$unsubscribe_appliedFilters;
-  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.f, (value) => $filters = value);
-  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.a, (value) => $selectedCharacter = value);
-  $$unsubscribe_appliedFilters = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.e, (value) => $appliedFilters = value);
+  $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
+  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.a, (value) => $selectedCharacter = value);
+  $$unsubscribe_appliedFilters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.e, (value) => $appliedFilters = value);
   const iconButtonProps = {
     color: "#fff",
     width: "22px",
@@ -1046,9 +1046,9 @@ const FilterBar2 = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
   {
     {
       if ($filters.characterSpells.isolate && ($selectedCharacter == null ? void 0 : $selectedCharacter._id)) {
-        (0, import_index_b4d695ef.j)(import_spellForm_4699a2ec.f, $filters.characterSpells.spellbook = [...$selectedCharacter.spellbook], $filters);
+        (0, import_index_b4d695ef.j)(import_spellForm_f8ba31d6.f, $filters.characterSpells.spellbook = [...$selectedCharacter.spellbook], $filters);
       } else {
-        (0, import_index_b4d695ef.j)(import_spellForm_4699a2ec.f, $filters.characterSpells.spellbook = [], $filters);
+        (0, import_index_b4d695ef.j)(import_spellForm_f8ba31d6.f, $filters.characterSpells.spellbook = [], $filters);
       }
     }
   }
@@ -1061,13 +1061,13 @@ const FilterBar2 = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
 			${appliedOpen ? `${(0, import_index_b4d695ef.v)(FiltersApplied, "FiltersApplied").$$render($$result, {}, {}, {})}` : ``}</div>
 		<div class="${"search svelte-lifcd6"}">${(0, import_index_b4d695ef.v)(SearchBar, "SearchBar").$$render($$result, {}, {}, {})}</div></div>
 	${`<hr class="${"svelte-lifcd6"}">
-		<div class="${"filterBox svelte-lifcd6"}">${(0, import_index_b4d695ef.v)(DdSources, "SourcesDD").$$render($$result, { labelText: "Sources" }, {}, {})}
-			<span class="${"separator svelte-lifcd6"}"></span>
+		<div class="${"filterBox svelte-lifcd6"}">${import_spellForm_f8ba31d6.u._id && import_spellForm_f8ba31d6.u._id !== "" ? `${(0, import_index_b4d695ef.v)(DdSources, "SourcesDD").$$render($$result, { labelText: "Sources" }, {}, {})}
+				<span class="${"separator svelte-lifcd6"}"></span>` : ``}
 			${(0, import_index_b4d695ef.v)(DdActions, "ActionsDD").$$render($$result, { labelText: "Actions" }, {}, {})}
 			${(0, import_index_b4d695ef.v)(DdComponents, "ComponentsDD").$$render($$result, { labelText: "Components" }, {}, {})}
 			${(0, import_index_b4d695ef.v)(DdLevel, "LevelDD").$$render($$result, { labelText: "Spell Level" }, {}, {})}
-			${(0, import_index_b4d695ef.v)(DdTraits, "TraitsDD").$$render($$result, { labelText: "Traits" }, {}, {})}
-			${(0, import_index_b4d695ef.v)(DdTraditions, "TraditionsDD").$$render($$result, { labelText: "Traditions" }, {}, {})}</div>`}
+			${(0, import_index_b4d695ef.v)(DdTraditions, "TraditionsDD").$$render($$result, { labelText: "Traditions" }, {}, {})}
+			${(0, import_index_b4d695ef.v)(DdTraits, "TraitsDD").$$render($$result, { labelText: "Traits" }, {}, {})}</div>`}
 </menu>`;
 });
 var flexSlider_svelte_svelte_type_style_lang = "";
@@ -1083,10 +1083,10 @@ const SpellSelector = (0, import_index_b4d695ef.c)(($$result, $$props, $$binding
   let $$unsubscribe_modal;
   let $user, $$unsubscribe_user;
   let $filteredSpells, $$unsubscribe_filteredSpells;
-  $$unsubscribe_selectedSpell = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.h, (value) => $selectedSpell = value);
-  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.m, (value) => value);
-  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.u, (value) => $user = value);
-  $$unsubscribe_filteredSpells = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.i, (value) => $filteredSpells = value);
+  $$unsubscribe_selectedSpell = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.h, (value) => $selectedSpell = value);
+  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.m, (value) => value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.u, (value) => $user = value);
+  $$unsubscribe_filteredSpells = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.i, (value) => $filteredSpells = value);
   $$result.css.add(css$2);
   hideMobile = Object.keys($selectedSpell).length > 0;
   $$unsubscribe_selectedSpell();
@@ -1155,9 +1155,9 @@ const SpellDetails = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings
   let $$unsubscribe_selectedSpell;
   let $$unsubscribe_modal;
   let $user, $$unsubscribe_user;
-  $$unsubscribe_selectedSpell = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.h, (value) => value);
-  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.m, (value) => value);
-  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.u, (value) => $user = value);
+  $$unsubscribe_selectedSpell = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.h, (value) => value);
+  $$unsubscribe_modal = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.m, (value) => value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.u, (value) => $user = value);
   let { name = "" } = $$props;
   let { type = "" } = $$props;
   let { level = "" } = $$props;
@@ -1222,7 +1222,7 @@ ${``}
 	${!!$user.name ? `<div class="${"buttonGroup svelte-1xnbngb"}">${custom ? `<button class="${"edit svelte-1xnbngb"}">${(0, import_index_b4d695ef.v)(SquareEditOutline, "SpellEditExistingIcon").$$render($$result, {}, {}, {})}
 					<span class="${"text svelte-1xnbngb"}">Edit</span></button>` : ``}
 			<button class="${"copy svelte-1xnbngb"}">${(0, import_index_b4d695ef.v)(ApplicationImport, "SpellCopyEditIcon").$$render($$result, {}, {}, {})}
-				<span class="${"text svelte-1xnbngb"}">Copy to custom </span></button>
+				<span class="${"text svelte-1xnbngb"}">Copy to Custom </span></button>
 			${custom ? `<button class="${"delete svelte-1xnbngb"}">${(0, import_index_b4d695ef.v)(DeleteForeverOutline, "SpellDeleteIcon").$$render($$result, {}, {}, {})}
 					<span class="${"text svelte-1xnbngb"}">Delete spell</span></button>` : ``}</div>` : ``}</div>
 <hr class="${"svelte-1xnbngb"}">
@@ -1331,9 +1331,9 @@ const SpellViewer = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings,
   let $selectedCharacter, $$unsubscribe_selectedCharacter;
   let $selectedSpell, $$unsubscribe_selectedSpell;
   let $user, $$unsubscribe_user;
-  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.a, (value) => $selectedCharacter = value);
-  $$unsubscribe_selectedSpell = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.h, (value) => $selectedSpell = value);
-  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_4699a2ec.u, (value) => $user = value);
+  $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.a, (value) => $selectedCharacter = value);
+  $$unsubscribe_selectedSpell = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.h, (value) => $selectedSpell = value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.u, (value) => $user = value);
   const arrowIconProps = {
     color: "var(--c-s-lighter)",
     width: "24px",
@@ -1356,7 +1356,7 @@ const SpellViewer = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings,
 						<span class="${"text svelte-14a4wty"}">Remove from spellbook </span></button>` : `<button aria-label="${"Add spell to character"}" class="${"spellAddDelButton svelte-14a4wty"}">${(0, import_index_b4d695ef.v)(BookmarkPlusOutline, "AddSpellIcon").$$render($$result, Object_1.assign(addRemoveIconProps), {}, {})}
 						<span class="${"text svelte-14a4wty"}">Add to spellbook </span></button>`}` : `<span>${!($user == null ? void 0 : $user.name) ? `Log in to save spells and create characters` : ``}</span>
 				<span>${!!($user == null ? void 0 : $user.name) && !$selectedCharacter._id ? `Select a character to add spells to a spellbook.` : ``}</span>`}
-			<button aria-label="${"close spell"}" class="${"closeButton svelte-14a4wty"}">${(0, import_index_b4d695ef.v)(import_spellForm_4699a2ec.C, "CloseIcon").$$render($$result, Object_1.assign(addRemoveIconProps), {}, {})}</button></div>
+			<button aria-label="${"close spell"}" class="${"closeButton svelte-14a4wty"}">${(0, import_index_b4d695ef.v)(import_spellForm_f8ba31d6.C, "CloseIcon").$$render($$result, Object_1.assign(addRemoveIconProps), {}, {})}</button></div>
 		${(0, import_index_b4d695ef.v)(SpellDetails, "SpellDetails").$$render($$result, Object_1.assign($selectedSpell), {}, {})}</main>` : `<main class="${"nospell svelte-14a4wty"}"><div class="${"message svelte-14a4wty"}"><p class="${"xl"}">Well, that&#39;s bold, trying to cast a spell before you pick one.</p>
 			<p class="${"xl"}">Try over there</p>
 			${(0, import_index_b4d695ef.v)(ArrowLeftThick, "ArrowLeftThick").$$render($$result, Object_1.assign(arrowIconProps), {}, {})}</div></main>`}`;

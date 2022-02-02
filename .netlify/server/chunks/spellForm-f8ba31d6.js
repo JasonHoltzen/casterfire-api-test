@@ -2974,7 +2974,6 @@ const createCustomSpellStore = () => {
     saveOne: async (newSpell) => {
       let data = await saveSpell(newSpell);
       let { customSpell } = data;
-      console.log(customSpell);
       update((spellList) => {
         if (customSpell) {
           let alreadyExists = false;
@@ -3002,7 +3001,6 @@ const createCustomSpellStore = () => {
     deleteOne: async (idToDelete) => {
       let data = await deleteCustomSpell(idToDelete);
       let { spellId, removedFromCount } = data;
-      console.log(data);
       update((spellList) => {
         if (spellId) {
           return spellList.filter((s) => {

@@ -62,7 +62,6 @@ async function post({ body }) {
       });
       user = user.toObject();
       delete user.password;
-      console.log(user);
     } catch (error) {
       if (error._message === "user validation failed") {
         return (0, import_erroh_c062e309.v)("User validation failed on the server");
