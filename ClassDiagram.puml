@@ -1,0 +1,121 @@
+@startuml classDiagram
+!theme cerulean-outline
+
+class user {
+  _id: Guid
+  name: String
+  email: String
+  password: String
+
+  subscribe(): user
+  set(): void
+  reset(): void
+}
+
+class character {
+  _id: Guid
+	active: String
+	alignment: String
+	ancestry: String
+	archetype: String
+	characterClass: String
+	characterName: String
+	focus: String
+	level: String
+  spelbook: Array<spell>
+	user: user
+}
+
+class characters {
+  characters: Array<character>
+
+  subscribe(): characters
+  set(character:character): void
+  update(character:character): characters
+  reset(): void
+  populate(): characters
+  saveOne(character:character): void
+  deleteOne(characterId:String): void
+  updateCharacterSpells(\n\tcharacterId:String \n\tspell:spell\n): void
+  addSpellToOne(spellId:String characterId:String): void
+  removeSpellFromOne(spellId:String characterId:String): void
+  removeDeletedSpellFromAll(spellId:String): void
+}
+
+class selectedCharacter extends character {
+  selectedCharacter: character
+
+  subscribe(): character
+  set(): void
+}
+
+class spell {
+  id: Guid
+	traits: String
+	type: String
+	name: String
+	level: String
+	source: String
+	traditions: String
+	components: String
+	cast: String
+	action: String
+	trigger: String
+	range: String
+	area: String
+	cost: String
+	requirements: String
+	savingThrow: String
+	targets: String
+	effect: String
+	duration: String
+	bloodline: String
+	domain: String
+	lesson: String
+	mystery: String
+	patronTheme: String
+	description: String
+	custom: Boolean
+}
+
+class pf_spell extends spell {
+  custom=false
+}
+
+class customSpell extends spell{
+  custom=true
+}
+
+class pf_spells {
+  pf_spells: Array<pf_spell>
+
+  subscribe(): pf_spells
+  set(pf_spells:Array<pf_spell>): void
+  populate(): void
+}
+
+class customSpells {
+  customSpells: Array<customSpell>
+
+  subscribe(): pf_spells
+  set(customSpells:Array<customSpell>): void
+  reset(): void
+  populate(): void
+  saveOne(newSpell:spell): void
+  deleteOne(idToDelete:String): void
+}
+
+class selectedSpell extends spell {
+  selectedSpell: spell
+
+  subscribe(): selectedSpell
+  set(spell:spell): void
+  reset(): void
+}
+
+characters --o character : array of
+characters ..o spell : contains array of
+customSpells --o customSpell : array of
+pf_spells --o pf_spell: array of
+
+@enduml
