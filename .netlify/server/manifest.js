@@ -29,7 +29,7 @@ const manifest = {
   assets: new Set(["favicon.ico", "favicon.png", "global.css", "lockuptext.svg", "logo.svg"]),
   _: {
     mime: { ".ico": "image/vnd.microsoft.icon", ".png": "image/png", ".css": "text/css", ".svg": "image/svg+xml" },
-    entry: { "file": "start-7a4485c2.js", "js": ["start-7a4485c2.js", "chunks/vendor-ad9d9cc1.js"], "css": ["assets/start-464e9d0a.css"] },
+    entry: { "file": "start-b16c7995.js", "js": ["start-b16c7995.js", "chunks/vendor-ad9d9cc1.js"], "css": ["assets/start-464e9d0a.css"] },
     nodes: [
       () => Promise.resolve().then(() => __toModule(require("./nodes/0.js"))),
       () => Promise.resolve().then(() => __toModule(require("./nodes/1.js"))),

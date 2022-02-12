@@ -1,5 +1,7 @@
 @startuml classDiagram
-!theme cerulean-outline
+skinparam classFontName Calibri
+skinparam classFontSize 16
+skinparam classFontStyle bold
 
 class user {
   _id: Guid
@@ -113,9 +115,40 @@ class selectedSpell extends spell {
   reset(): void
 }
 
-characters --o character : array of
-characters ..o spell : contains array of
-customSpells --o customSpell : array of
-pf_spells --o pf_spell: array of
+class filters {
+  showRulebook: boolean
+	showCustom: boolean
+	characterSpells: \n\tObject {\n\t\tisolate:String \n\t\tpellbook:customSpells\n\t}
+	search:String
+	level: \n\tObject {\n\t\tequality:String\n\t\tnumber:Integer\n\t}
+	actions: Array<String>
+	components: Array<String>
+	traditions: Array<String>
+	traits: Array<String>
+	type: String
+}
 
+class filteredSpells {
+  pfSpells: pf_spells
+  customSpells: customSpells
+  filters: filters
+  filteredSpells: Array<spell>
+
+  subscribe(): filteredSpells
+  reduceFilters(filters): \n\tArray<Object{\n\t\tkey:String\n\t\tvalue:String\n\t}>
+}
+
+class filteredSpells  {
+  customSpells: customSpells
+  pf_spells: pf_spells
+  appliedFilters: appliedFilters
+}
+
+characters --o character: array of
+characters ..o customSpell: contains array of
+customSpells --o customSpell: array of
+pf_spells --o pf_spell: array of
+filteredSpells --o pf_spells: filters
+filteredSpells --o customSpells: filters
+filteredSpells --o filters: reduces non-\ndefault values
 @enduml

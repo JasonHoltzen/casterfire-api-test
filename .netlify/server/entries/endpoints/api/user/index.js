@@ -40,7 +40,7 @@ __export(exports, {
 });
 var import_db_8890404f = __toModule(require("../../../../chunks/db-8890404f.js"));
 var import_erroh_c062e309 = __toModule(require("../../../../chunks/erroh-c062e309.js"));
-var import_User_7fc291b2 = __toModule(require("../../../../chunks/User-7fc291b2.js"));
+var import_User_eca564e2 = __toModule(require("../../../../chunks/User-eca564e2.js"));
 var import_dotenv = __toModule(require("dotenv"));
 var import_mongoose = __toModule(require("mongoose"));
 var import_joigoose = __toModule(require("joigoose"));
@@ -48,7 +48,7 @@ var import_joi = __toModule(require("joi"));
 async function get({ locals }) {
   try {
     await (0, import_db_8890404f.c)();
-    const user = await import_User_7fc291b2.U.findOne({ _id: locals.userId }).lean().clone() || void 0;
+    const user = await import_User_eca564e2.U.findOne({ _id: locals.userId }).lean().clone() || void 0;
     if (user) {
       delete user.password;
       delete user.__v;

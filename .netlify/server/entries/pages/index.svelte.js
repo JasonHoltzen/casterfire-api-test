@@ -1021,9 +1021,11 @@ const FilterBar2 = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
   let $filters, $$unsubscribe_filters;
   let $selectedCharacter, $$unsubscribe_selectedCharacter;
   let $appliedFilters, $$unsubscribe_appliedFilters;
+  let $user, $$unsubscribe_user;
   $$unsubscribe_filters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.f, (value) => $filters = value);
   $$unsubscribe_selectedCharacter = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.a, (value) => $selectedCharacter = value);
   $$unsubscribe_appliedFilters = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.e, (value) => $appliedFilters = value);
+  $$unsubscribe_user = (0, import_index_b4d695ef.b)(import_spellForm_f8ba31d6.u, (value) => $user = value);
   const iconButtonProps = {
     color: "#fff",
     width: "22px",
@@ -1055,13 +1057,14 @@ const FilterBar2 = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
   $$unsubscribe_filters();
   $$unsubscribe_selectedCharacter();
   $$unsubscribe_appliedFilters();
+  $$unsubscribe_user();
   return `<menu class="${"svelte-lifcd6"}"><div class="${"filterHeader svelte-lifcd6"}"><button class="${"iconButton filter svelte-lifcd6"}">${`<span class="${"svelte-lifcd6"}">${(0, import_index_b4d695ef.v)(FilterMenu, "FilterMenuIcon").$$render($$result, Object.assign(iconButtonProps), {}, {})}</span>`}</button>
 		<div class="${"appliedfilters svelte-lifcd6"}"><h2 class="${"svelte-lifcd6"}">Spell Filters
 				<button class="${(0, import_index_b4d695ef.e)((0, import_index_b4d695ef.f)(appliedOpen ? "iconButton chevron rotate" : "iconButton chevron")) + " svelte-lifcd6"}" ${!filtersActive ? "disabled" : ""}><span class="${"svelte-lifcd6"}">${(0, import_index_b4d695ef.v)(ChevronDown, "ExpandIcon").$$render($$result, Object.assign(iconButtonProps), {}, {})}</span></button></h2>
 			${appliedOpen ? `${(0, import_index_b4d695ef.v)(FiltersApplied, "FiltersApplied").$$render($$result, {}, {}, {})}` : ``}</div>
 		<div class="${"search svelte-lifcd6"}">${(0, import_index_b4d695ef.v)(SearchBar, "SearchBar").$$render($$result, {}, {}, {})}</div></div>
 	${`<hr class="${"svelte-lifcd6"}">
-		<div class="${"filterBox svelte-lifcd6"}">${import_spellForm_f8ba31d6.u._id && import_spellForm_f8ba31d6.u._id !== "" ? `${(0, import_index_b4d695ef.v)(DdSources, "SourcesDD").$$render($$result, { labelText: "Sources" }, {}, {})}
+		<div class="${"filterBox svelte-lifcd6"}">${($user == null ? void 0 : $user._id) !== "" ? `${(0, import_index_b4d695ef.v)(DdSources, "SourcesDD").$$render($$result, { labelText: "Sources" }, {}, {})}
 				<span class="${"separator svelte-lifcd6"}"></span>` : ``}
 			${(0, import_index_b4d695ef.v)(DdActions, "ActionsDD").$$render($$result, { labelText: "Actions" }, {}, {})}
 			${(0, import_index_b4d695ef.v)(DdComponents, "ComponentsDD").$$render($$result, { labelText: "Components" }, {}, {})}

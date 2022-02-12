@@ -25,7 +25,7 @@ __export(exports, {
   post: () => post
 });
 var import_db_8890404f = __toModule(require("../../../chunks/db-8890404f.js"));
-var import_User_7fc291b2 = __toModule(require("../../../chunks/User-7fc291b2.js"));
+var import_User_eca564e2 = __toModule(require("../../../chunks/User-eca564e2.js"));
 var import_Session_280fcc5d = __toModule(require("../../../chunks/Session-280fcc5d.js"));
 var import_erroh_c062e309 = __toModule(require("../../../chunks/erroh-c062e309.js"));
 var import_bcrypt = __toModule(require("bcrypt"));
@@ -45,7 +45,7 @@ async function post({ body }) {
   try {
     const { email, password } = body;
     await (0, import_db_8890404f.c)();
-    let user = await import_User_7fc291b2.U.findOne({ email }).lean().clone();
+    let user = await import_User_eca564e2.U.findOne({ email }).lean().clone();
     if (!user)
       return (0, import_erroh_c062e309.a)("You don't exist!  Hast though scribeth thine name upon our registration form?");
     const isMatch = await import_bcrypt.default.compare(password, user.password);

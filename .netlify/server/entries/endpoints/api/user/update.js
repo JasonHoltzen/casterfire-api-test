@@ -25,7 +25,7 @@ __export(exports, {
   post: () => post
 });
 var import_db_8890404f = __toModule(require("../../../../chunks/db-8890404f.js"));
-var import_User_7fc291b2 = __toModule(require("../../../../chunks/User-7fc291b2.js"));
+var import_User_eca564e2 = __toModule(require("../../../../chunks/User-eca564e2.js"));
 var import_erroh_c062e309 = __toModule(require("../../../../chunks/erroh-c062e309.js"));
 var import_dotenv = __toModule(require("dotenv"));
 var import_mongoose = __toModule(require("mongoose"));
@@ -47,7 +47,7 @@ async function post({ body, locals }) {
     const update = { name, email };
     try {
       await (0, import_db_8890404f.c)();
-      const user = await import_User_7fc291b2.U.findOneAndUpdate(filter, update, {
+      const user = await import_User_eca564e2.U.findOneAndUpdate(filter, update, {
         new: true
       }).lean();
       if (!user) {

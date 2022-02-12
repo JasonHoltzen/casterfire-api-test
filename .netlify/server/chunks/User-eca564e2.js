@@ -28,7 +28,7 @@ var import_mongoose = __toModule(require("mongoose"));
 var import_joigoose = __toModule(require("joigoose"));
 var import_joi = __toModule(require("joi"));
 const userSchema = import_joi.default.object({
-  name: import_joi.default.string().alphanum().min(2).max(255).trim().required(),
+  name: import_joi.default.string().regex(/^[a-zA-Z0-9, ]*$/, "Alphanumerics, space and comma characters").min(2).max(255).trim().required(),
   email: import_joi.default.string().email().min(2).max(255).trim().required(),
   password: import_joi.default.string().pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*(),./]{3,200}$")).required(),
   date: import_joi.default.date().default(Date.now()),
