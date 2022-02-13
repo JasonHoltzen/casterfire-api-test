@@ -31,7 +31,6 @@ export const authSchema = Joi.object({
 	repeat_password: Joi.ref('password'),
 	name: Joi.string()
 		.pattern(name_alphaSpace, { name: 'Alphanumerics, space and comma characters' })
-		.required()
 		.messages({
 			'string.empty': 'text',
 			'string.pattern.name': 'only letters or numbers'

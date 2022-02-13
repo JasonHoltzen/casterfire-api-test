@@ -47,6 +47,9 @@
 />
 
 <button on:click|preventDefault={login} disabled={hasErrors}>Login</button>
+<pre>
+	{JSON.stringify(errors)}
+</pre>
 
 <style lang="scss">
 	h3 {
