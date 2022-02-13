@@ -37,6 +37,8 @@ The initial release of the spell list only includes spells from the first two Pa
   - If logged in:
     - Option to copy a Pathfinder spell and edit it as a custom spell.
     - Option to edit, delete, or clone an existing custom spell.
+    - If character is selected:
+      - Spell will have option to add spell to selected character's spellbook.
 - Filters
   - Perform live filtering on the spell list.
   - By default, shows all Pathfinder and Custom spells available.

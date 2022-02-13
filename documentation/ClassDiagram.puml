@@ -1,4 +1,5 @@
 @startuml classDiagram
+skinparam backgroundColor white
 skinparam classFontName Calibri
 skinparam classFontSize 16
 skinparam classFontStyle bold

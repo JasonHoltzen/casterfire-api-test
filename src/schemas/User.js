@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const userSchema = Joi.object({
 	name: Joi.string()
-		.regex(/^[a-zA-Z0-9, ]*$/, 'Alphanumerics, space and comma characters')
+		.pattern(new RegExp(/^[a-zA-Z0-9, ]*$/))
 		.min(2)
 		.max(255)
 		.trim()

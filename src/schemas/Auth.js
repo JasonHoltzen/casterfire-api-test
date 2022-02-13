@@ -4,6 +4,7 @@ const pw_lower = new RegExp('^(?=.*[a-z])');
 const pw_upper = new RegExp('^(?=.*[A-Z])');
 const pw_num = new RegExp('^(?=.*[0-9])');
 const pw_special = new RegExp('^(?=.*?[#?!@$%^&*-])');
+const name_alphaSpace = new RegExp(/^[a-zA-Z0-9, ]*$/);
 
 export const authSchema = Joi.object({
 	email: Joi.string()
@@ -28,10 +29,13 @@ export const authSchema = Joi.object({
 			'string.pattern.name': '{#name}'
 		}),
 	repeat_password: Joi.ref('password'),
-	name: Joi.string().alphanum().messages({
-		'string.empty': 'text',
-		'string.alphanum': 'only letters or numbers'
-	})
+	name: Joi.string()
+		.pattern(name_alphaSpace, { name: 'Alphanumerics, space and comma characters' })
+		.required()
+		.messages({
+			'string.empty': 'text',
+			'string.pattern.name': 'only letters or numbers'
+		})
 })
 	.with('repeat_password', 'password')
 	.messages({ 'object.with': 'both password fields' })

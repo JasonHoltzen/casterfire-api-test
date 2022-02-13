@@ -2,7 +2,7 @@
 
 User testing checklist for CasterFire spell and spell book tracker.
 
-### Authentication
+## Authentication
 
 - [ ] Toggle `Register` checkbox swaps between Login form and Register form.
 - [ ] Unable to register with invalid email, for example typing in "purple.com".
