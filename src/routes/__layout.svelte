@@ -78,6 +78,11 @@
 		<!-- Used by clippy to copy things to user clipboard -->
 		<div id="clipboard" />
 	{/if}
+	<footer>
+		Default spell data &copy;Paizo Inc., is available via the <a
+			href="https://paizo.com/pathfinder/compatibility/ogl">Open Game License.</a
+		>
+	</footer>
 </div>
 
 <style lang="scss">
@@ -146,5 +151,8 @@
 
 	h1 {
 		@include visuallyHidden;
+	}
+	footer {
+		font-size: 10px;
 	}
 </style>
