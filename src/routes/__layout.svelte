@@ -79,9 +79,9 @@
 		<div id="clipboard" />
 	{/if}
 	<footer>
-		Default spell data &copy;Paizo Inc., is available via the <a
-			href="https://paizo.com/pathfinder/compatibility/ogl">Open Game License.</a
-		>
+		Default spell data &copy;Paizo Inc., is available via the
+		<a href="https://paizo.com/pathfinder/compatibility/ogl"> Open Game License. </a>
+		Thank you, Paizo for sharing all your hard work with the world.
 	</footer>
 </div>
 
@@ -92,7 +92,7 @@
 		display: grid;
 		gap: 3px;
 		grid-template-columns: minmax(250px, 1fr) minmax(200px, 3fr);
-		grid-template-rows: min-content min-content 1fr;
+		grid-template-rows: min-content min-content 1fr min-content;
 		height: 100%;
 		max-height: 100%;
 		max-width: 1280px;
@@ -154,5 +154,7 @@
 	}
 	footer {
 		font-size: 10px;
+		grid-column: 1 / -1;
+		text-align: center;
 	}
 </style>
