@@ -48,9 +48,9 @@
 	};
 
 	const hideModal = async () => {
-		$modal.show = false;
-		await tick();
 		characterFormValues.reset();
+		$modal.show = false;
+		$modal.component = '';
 	};
 
 	$: hasErrors = !!$characterFormErrors && $characterFormErrors.length > 0;

@@ -28,6 +28,7 @@
 				dispatch('success');
 			} else {
 				const { statusText } = res;
+				console.log(statusText);
 
 				if (statusText === 'Conflict') {
 					dataError.showFatal(

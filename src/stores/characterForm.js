@@ -17,7 +17,7 @@ const initFormStore = {
 };
 
 const createCharacterFormStore = () => {
-	const { subscribe, set } = writable(initFormStore);
+	const { subscribe, set } = writable({ ...initFormStore });
 
 	return {
 		subscribe,
