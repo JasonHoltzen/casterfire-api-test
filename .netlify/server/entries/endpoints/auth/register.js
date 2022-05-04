@@ -25,7 +25,7 @@ __export(exports, {
   post: () => post
 });
 var import_db_8890404f = __toModule(require("../../../chunks/db-8890404f.js"));
-var import_User_eca564e2 = __toModule(require("../../../chunks/User-eca564e2.js"));
+var import_User_a98eda05 = __toModule(require("../../../chunks/User-a98eda05.js"));
 var import_Session_280fcc5d = __toModule(require("../../../chunks/Session-280fcc5d.js"));
 var import_erroh_c062e309 = __toModule(require("../../../chunks/erroh-c062e309.js"));
 var import_bcrypt = __toModule(require("bcrypt"));
@@ -46,7 +46,7 @@ async function post({ body }) {
     await (0, import_db_8890404f.c)();
     const { email, name, password } = body;
     let user = void 0;
-    user = await import_User_eca564e2.U.findOne({ email }).lean().clone();
+    user = await import_User_a98eda05.U.findOne({ email }).lean().clone();
     if (user) {
       return (0, import_erroh_c062e309.c)();
     } else {
@@ -55,7 +55,7 @@ async function post({ body }) {
     const salt = await import_bcrypt.default.genSalt(10);
     const encPw = await import_bcrypt.default.hash(password, salt);
     try {
-      user = await import_User_eca564e2.U.create({
+      user = await import_User_a98eda05.U.create({
         name,
         password: encPw,
         email

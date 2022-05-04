@@ -79,7 +79,7 @@ const initFormStore = {
   user: ""
 };
 const createCharacterFormStore = () => {
-  const { subscribe: subscribe2, set } = (0, import_spellForm_f8ba31d6.w)(initFormStore);
+  const { subscribe: subscribe2, set } = (0, import_spellForm_f8ba31d6.w)(__spreadValues({}, initFormStore));
   return {
     subscribe: subscribe2,
     set,
@@ -137,6 +137,7 @@ const pw_lower = new RegExp("^(?=.*[a-z])");
 const pw_upper = new RegExp("^(?=.*[A-Z])");
 const pw_num = new RegExp("^(?=.*[0-9])");
 const pw_special = new RegExp("^(?=.*?[#?!@$%^&*-])");
+const name_alphaSpace = new RegExp(/^[a-zA-Z0-9, ]*$/);
 import_joi.default.object({
   email: import_joi.default.string().email({ tlds: { allow: false } }).required().messages({
     "string.empty": "text",
@@ -149,9 +150,9 @@ import_joi.default.object({
     "string.pattern.name": "{#name}"
   }),
   repeat_password: import_joi.default.ref("password"),
-  name: import_joi.default.string().alphanum().messages({
+  name: import_joi.default.string().pattern(name_alphaSpace, { name: "Alphanumerics, space and comma characters" }).messages({
     "string.empty": "text",
-    "string.alphanum": "only letters or numbers"
+    "string.pattern.name": "only letters or numbers"
   })
 }).with("repeat_password", "password").messages({ "object.with": "both password fields" }).with("repeat_password", "name").messages({ "object.with": "name entry" }).with("name", "repeat_password").messages({ "object.with": "a confirmed password" });
 var login_svelte_svelte_type_style_lang = "";
@@ -323,7 +324,7 @@ const ErrorToast = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, 
 });
 var __layout_svelte_svelte_type_style_lang = "";
 const css = {
-  code: ".container.svelte-13032o3.svelte-13032o3{display:grid;flex:1 1 auto;gap:3px;grid-template-columns:minmax(250px,1fr) minmax(200px,3fr);grid-template-rows:-webkit-min-content -webkit-min-content 1fr;grid-template-rows:min-content min-content 1fr;height:100%;margin:0 auto;max-height:100%;max-width:1280px;position:relative}@media(max-width:767px){.container.svelte-13032o3.svelte-13032o3{grid-template-columns:100%;height:auto;max-height:auto}.container.svelte-13032o3>.svelte-13032o3{grid-column:1/-1!important;grid-row:auto!important}}header.svelte-13032o3.svelte-13032o3{align-items:center;background:var(--c-gray-darkest);border-radius:var(--bdrs);color:varl(--c-gray-lighter);display:flex;flex-flow:row wrap;gap:1rem;grid-column:1/-1;grid-row:1/1;justify-content:space-between;padding:10px;z-index:20}@media(max-width:767px){header.svelte-13032o3.svelte-13032o3{justify-content:flex-start}}.lockup.svelte-13032o3.svelte-13032o3{align-items:center;display:flex;flex:1 1 auto;flex-flow:row nowrap;gap:.5rem;justify-content:center;margin:0 auto;max-width:70%}.logo.svelte-13032o3.svelte-13032o3{min-height:20px;width:clamp(20px,10vw,50px)}.logoText.svelte-13032o3.svelte-13032o3{max-height:60px;min-height:20px;width:clamp(80px,60vw,250px)}h1.svelte-13032o3.svelte-13032o3{clip:rect(0 0 0 0);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}",
+  code: ".container.svelte-12rw73r.svelte-12rw73r{display:grid;flex:1 1 auto;gap:3px;grid-template-columns:minmax(250px,1fr) minmax(200px,3fr);grid-template-rows:-webkit-min-content -webkit-min-content 1fr -webkit-min-content;grid-template-rows:min-content min-content 1fr min-content;height:100%;margin:0 auto;max-height:100%;max-width:1280px;position:relative}@media(max-width:767px){.container.svelte-12rw73r.svelte-12rw73r{grid-template-columns:100%;height:auto;max-height:auto}.container.svelte-12rw73r>.svelte-12rw73r{grid-column:1/-1!important;grid-row:auto!important}}header.svelte-12rw73r.svelte-12rw73r{align-items:center;background:var(--c-gray-darkest);border-radius:var(--bdrs);color:varl(--c-gray-lighter);display:flex;flex-flow:row wrap;gap:1rem;grid-column:1/-1;grid-row:1/1;justify-content:space-between;padding:10px;z-index:20}@media(max-width:767px){header.svelte-12rw73r.svelte-12rw73r{justify-content:flex-start}}.lockup.svelte-12rw73r.svelte-12rw73r{align-items:center;display:flex;flex:1 1 auto;flex-flow:row nowrap;gap:.5rem;justify-content:center;margin:0 auto;max-width:70%}.logo.svelte-12rw73r.svelte-12rw73r{min-height:20px;width:clamp(20px,10vw,50px)}.logoText.svelte-12rw73r.svelte-12rw73r{max-height:60px;min-height:20px;width:clamp(80px,60vw,250px)}h1.svelte-12rw73r.svelte-12rw73r{clip:rect(0 0 0 0);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}footer.svelte-12rw73r.svelte-12rw73r{font-size:10px;grid-column:1/-1;text-align:center}",
   map: null
 };
 async function load({ session, fetch }) {
@@ -355,13 +356,17 @@ const _layout = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slo
 
 ${(0, import_index_b4d695ef.v)(Modal, "Modal").$$render($$result, {}, {}, {})}
 ${$dataError.visible ? `${(0, import_index_b4d695ef.v)(ErrorToast, "ErrorToast").$$render($$result, {}, {}, {})}` : ``}
-<div class="${"container svelte-13032o3"}"><header class="${"svelte-13032o3"}">${(0, import_index_b4d695ef.v)(Nav, "Nav").$$render($$result, {}, {}, {})}
+<div class="${"container svelte-12rw73r"}"><header class="${"svelte-12rw73r"}">${(0, import_index_b4d695ef.v)(Nav, "Nav").$$render($$result, {}, {}, {})}
 		
-		<div class="${"lockup svelte-13032o3"}"><img${(0, import_index_b4d695ef.a)("src", import_lockuptext_9f3078c3.L, 0)} alt="${"CasterFire Logo"}" class="${"logo svelte-13032o3"}">
-			<img${(0, import_index_b4d695ef.a)("src", import_lockuptext_9f3078c3.a, 0)} alt="${"CasterFire Lockup Text"}" class="${"logoText svelte-13032o3"}">
-			<h1 class="${"svelte-13032o3"}">CasterFire</h1></div>
+		<div class="${"lockup svelte-12rw73r"}"><img${(0, import_index_b4d695ef.a)("src", import_lockuptext_9f3078c3.L, 0)} alt="${"CasterFire Logo"}" class="${"logo svelte-12rw73r"}">
+			<img${(0, import_index_b4d695ef.a)("src", import_lockuptext_9f3078c3.a, 0)} alt="${"CasterFire Lockup Text"}" class="${"logoText svelte-12rw73r"}">
+			<h1 class="${"svelte-12rw73r"}">CasterFire</h1></div>
 		${(0, import_index_b4d695ef.v)(PlayerInfo, "PlayerInfo").$$render($$result, {}, {}, {})}</header>
 	${slots.default ? slots.default({}) : ``}
 	${``}
+	<footer class="${"svelte-12rw73r"}">Default spell data \xA9Paizo Inc., is available via the
+		<a href="${"https://paizo.com/pathfinder/compatibility/ogl"}">Open Game License. </a>
+		Thank you, Paizo for sharing all your hard work with the world.
+	</footer>
 </div>`;
 });

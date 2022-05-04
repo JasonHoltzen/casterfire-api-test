@@ -1365,7 +1365,9 @@ const SpellViewer = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings,
 			${(0, import_index_b4d695ef.v)(ArrowLeftThick, "ArrowLeftThick").$$render($$result, Object_1.assign(arrowIconProps), {}, {})}</div></main>`}`;
 });
 const Routes = (0, import_index_b4d695ef.c)(($$result, $$props, $$bindings, slots) => {
-  return `${(0, import_index_b4d695ef.v)(FilterBar2, "FilterBar2").$$render($$result, {}, {}, {})}
+  return `${$$result.head += `${$$result.title = `<title>CasterFire | Pathfinder 2e Spell Book</title>`, ""}`, ""}
+
+${(0, import_index_b4d695ef.v)(FilterBar2, "FilterBar2").$$render($$result, {}, {}, {})}
 ${(0, import_index_b4d695ef.v)(SpellSelector, "SpellSelector").$$render($$result, {}, {}, {})}
 ${(0, import_index_b4d695ef.v)(SpellViewer, "SpellViewer").$$render($$result, {}, {}, {})}`;
 });

@@ -25,7 +25,7 @@ __export(exports, {
   get: () => get
 });
 var import_db_8890404f = __toModule(require("../../../../chunks/db-8890404f.js"));
-var import_User_eca564e2 = __toModule(require("../../../../chunks/User-eca564e2.js"));
+var import_User_a98eda05 = __toModule(require("../../../../chunks/User-a98eda05.js"));
 var import_dotenv = __toModule(require("dotenv"));
 var import_mongoose = __toModule(require("mongoose"));
 var import_joigoose = __toModule(require("joigoose"));
@@ -41,7 +41,7 @@ const convertDate = (date) => {
 async function get() {
   try {
     await (0, import_db_8890404f.c)();
-    const users = await import_User_eca564e2.U.find({}).lean().clone() || void 0;
+    const users = await import_User_a98eda05.U.find({}).lean().clone() || void 0;
     const playerList = await users.map((user) => {
       delete user._id;
       delete user.__v;
